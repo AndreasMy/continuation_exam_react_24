@@ -1,4 +1,10 @@
 body {
-  
-    background-color: #1F2021;
+  background-color: #1f2021;
+}
+
+h1,
+h2,
+h3,
+p {
+  color: antiquewhite;
 }

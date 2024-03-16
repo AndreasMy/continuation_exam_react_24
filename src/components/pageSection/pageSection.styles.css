@@ -1,0 +1,21 @@
+.section-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 2%;
+  border-radius: 10px;
+  background-color: #26252E;
+}
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding:  12px 0;
+  min-width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgb(73, 70, 68);
+}
