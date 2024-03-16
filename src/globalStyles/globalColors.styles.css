@@ -5,6 +5,18 @@ body {
 h1,
 h2,
 h3,
-p {
+h4,
+h5,
+p,
+.navbar-link-elem {
   color: antiquewhite;
+}
+
+.home-welcome-wrapper,
+.home-stat-wrapper {
+  background-color: #25292d;
+}
+
+.welcome-banner {
+  background-color: #28333d;
 }

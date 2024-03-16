@@ -1,15 +1,16 @@
 import { Nav } from "../nav/nav.component"
 import { navbarData } from "./navbarData"
 
+import './navbar.styles.css'
+
 export const NavBar = () => {
 
     return (
         <div className="navigation-bar">
-            <h2>Navigation bar</h2>
             <Nav data={navbarData}
             ulClassName="navbar-ul-links"
-            liClassName="navbar-li-elem"
-            itemClassName="navbar-link"/>
+            liClassName="navbar-list-elem"
+            itemClassName="navbar-link-elem"/>
         </div>
     )
 }
