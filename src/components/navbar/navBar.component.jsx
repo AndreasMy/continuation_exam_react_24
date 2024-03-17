@@ -1,5 +1,5 @@
 import { Nav } from "../nav/nav.component";
-import { navbarData } from "./navbarData";
+import { navbarData } from "../../data/navbarData";
 
 import "./navbar.styles.css";
 

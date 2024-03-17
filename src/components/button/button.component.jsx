@@ -1,4 +1,4 @@
-const Button = ({ children, onClick, className = '' }) => {
+export const Button = ({ children, onClick, className = '' }) => {
     return (
       <button className={`${className}`} onClick={onClick}>
         {children}

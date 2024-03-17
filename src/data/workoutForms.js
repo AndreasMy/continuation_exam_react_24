@@ -1,0 +1,67 @@
+export const workoutForms = {
+  exerciseForms: [
+    {
+      id: "exerciseForm",
+      fields: [
+        {
+          id: "name",
+          type: "text",
+          label: "Exercise",
+          placeholder: "Exercise",
+          required: true,
+        },
+        {
+          id: "weight",
+          type: "number",
+          label: "Weight",
+          placeholder: "Weight",
+          required: true,
+        },
+        {
+          id: "repetitions",
+          type: "number",
+          label: "Repetitions",
+          placeholder: "Repetitions",
+          required: true,
+        },
+        {
+          id: "sets",
+          type: "number",
+          label: "Sets",
+          placeholder: "Sets",
+          required: true,
+        },
+/*         {
+          id: "date",
+          type: "date",
+          label: "Date",
+          placeholder: "YYYY-MM-DD",
+          required: true,
+        }, */
+      ],
+      submitButton: {
+        label: "Submit",
+        type: "submit",
+      },
+    },
+  ],
+  musclegroupForms: [
+    {
+      id: "musclegroupForm",
+      fields: [
+        {
+          id: "navn",
+          type: "text",
+          label: "Name",
+          placeholder: "Rygg, bein, etc...",
+          required: true,
+          autoFocus: true,
+        },
+      ],
+      submitButton: {
+        label: "Submit",
+        type: "submit",
+      },
+    },
+  ],
+};

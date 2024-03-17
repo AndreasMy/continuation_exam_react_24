@@ -1,6 +1,8 @@
-import { PageSection } from "../../components/pageSection/pageSection.component";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import "./home.styles.css";
+import { PageSection } from "../../components/pageSection/pageSection.component";
+// Styles are inherited from PageSection component
+// Keep that in mind when updating the component to refactor this and other pages
 
 export const HomePage = () => {
   return (
