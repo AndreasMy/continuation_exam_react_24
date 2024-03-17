@@ -1,0 +1,6 @@
+.page-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 23%;
+    flex: 1;
+  }
