@@ -1,4 +1,4 @@
-//import { DELETERequest, fetchWithID, PUTRequest } from "./API";
+import { DELETERequest, fetchWithID, PUTRequest } from "./apiServices";
 
 export const populateMuscleGroupArray = async (exerciseID, muscleGroupID) => {
   try {
@@ -22,6 +22,16 @@ export const findByID = async (muscleGroupID) => {
     return arrayData;
   } catch (error) {
     console.error("Error finding array items", error);
+  }
+};
+
+export const deleteExerciseSingle = async (exerciseID) => {
+  try {
+    await DELETERequest(exerciseID, "ovelser");
+    console.log(`Exercise with ID ${exerciseID} deleted successfully.`);
+  } catch (error) {
+    console.error("Error deleting exercise", error);
+    throw error;
   }
 };
 

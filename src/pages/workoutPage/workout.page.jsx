@@ -10,6 +10,8 @@ import { ExerciseSection } from "../../templates/exerciseForms/exerciseForms.tem
 import { ExerciseList } from "../../templates/workoutList/workoutList.template";
 import { useFetchList } from "../../API/useFetchList";
 
+import "./workout.styles.css";
+
 export const WorkoutPage = () => {
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
   const [musclegroupID, setMuscleGroupID] = useState("");
@@ -40,9 +42,8 @@ export const WorkoutPage = () => {
         <div className="section-wrapper home-welcome-wrapper">
           <div className="section-banner welcome-banner"></div>
           <div className="section-container">
-            <h1>Register workout</h1>
+            <h1>Add Workout</h1>
             <h4>Select Date</h4>
-
             <DatePicker
               dateFormat="yyyy/MM/dd"
               selected={startDate}
@@ -50,28 +51,29 @@ export const WorkoutPage = () => {
               /* minDate={today} */
               todayButton={"Today"}
             />
+            <Wrapper className="ui-wrapper">
+              <MuscleGroupSection
+                setMuscleGroupSelected={setMuscleGroupSelected}
+                setMuscleGroupID={setMuscleGroupID}
+                setSelectedMuscleGroup={setSelectedMuscleGroup}
+                musclegroups={musclegroups}
+                loadMuscleGroups={loadMuscleGroups}
+                loadExercises={loadExercises}
+              />
 
-            <h4>Add or select muscle group</h4>
-            <MuscleGroupSection
-              setMuscleGroupSelected={setMuscleGroupSelected}
-              setMuscleGroupID={setMuscleGroupID}
-              setSelectedMuscleGroup={setSelectedMuscleGroup}
-              musclegroups={musclegroups}
-              loadMuscleGroups={loadMuscleGroups}
-              loadExercises={loadExercises}
-            />
+              <ExerciseSection
+                musclegroupSelected={musclegroupSelected}
+                musclegroupID={musclegroupID}
+                selectedMuscleGroup={selectedMuscleGroup}
+                exercisesList={exercisesList}
+                loadExercises={loadExercises}
+              />
 
-            <h4>Add or select Exercise</h4>
-            <ExerciseSection
-              musclegroupSelected={musclegroupSelected}
-              musclegroupID={musclegroupID}
-              selectedMuscleGroup={selectedMuscleGroup}
-              exercisesList={exercisesList}
-              loadExercises={loadExercises}
-            />
-
-            <h4>List of Exercises</h4>
-            <ExerciseList exercisesList={exercisesList} />
+              <ExerciseList
+                exercisesList={exercisesList}
+                loadExercises={loadExercises}
+              />
+            </Wrapper>
           </div>
         </div>
       </Wrapper>

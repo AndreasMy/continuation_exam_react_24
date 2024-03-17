@@ -8,7 +8,7 @@ import { InteractiveListItem } from "../../molecules/InteractiveListItem/Interac
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { submitForm } from "../../helpers/formHelpers";
-///import { DELETERequest } from '../../API/API';
+
 import { deleteMany } from "../../API/apiUtilities";
 
 export const MuscleGroupSection = ({
