@@ -1,4 +1,9 @@
-import { DELETERequest, fetchWithID, POSTRequest, PUTRequest } from "./apiServices";
+import {
+  DELETERequest,
+  fetchWithID,
+  POSTRequest,
+  PUTRequest,
+} from "./apiServices";
 
 export const populateMuscleGroupArray = async (exerciseID, muscleGroupID) => {
   try {
@@ -15,6 +20,7 @@ export const populateMuscleGroupArray = async (exerciseID, muscleGroupID) => {
   }
 };
 
+// misleading function title
 export const findMuscleGroupByID = async (muscleGroupID) => {
   try {
     const data = await fetchWithID("muskelgrupper", muscleGroupID);
@@ -24,6 +30,27 @@ export const findMuscleGroupByID = async (muscleGroupID) => {
     console.error("Error finding array items", error);
   }
 };
+
+export const findMGByID = async (muscleGroupID) => {
+  try {
+    const data = await fetchWithID("muskelgrupper", muscleGroupID);
+    return data;
+  } catch (error) {
+    console.error("Error finding array items", error);
+  }
+};
+
+export const editMuscleGroup = async (
+  muscleGroupID,
+  updatedMuscleGroupData
+) => {
+  try {
+    await PUTRequest(updatedMuscleGroupData, "muskelgrupper", muscleGroupID);
+  } catch (error) {
+    console.error("Error updating muscle group", error);
+  }
+};
+
 export const findExerciseByID = async (exerciseID) => {
   try {
     const data = await fetchWithID("ovelser", exerciseID);

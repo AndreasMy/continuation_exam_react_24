@@ -8,18 +8,27 @@ import { InteractiveListItem } from "../../molecules/InteractiveListItem/Interac
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { submitForm } from "../../helpers/formHelpers";
+import { Modal } from "../../components/modal/modal.component";
 
-import { deleteMany } from "../../API/apiUtilities";
+import {
+  deleteMany,
+  editMuscleGroup,
+  findMGByID,
+} from "../../API/apiUtilities";
 
 export const MuscleGroupSection = ({
   setMuscleGroupID,
+  musclegroupID,
   setSelectedMuscleGroup,
+  selectedMuscleGroup,
   setMuscleGroupSelected,
   musclegroups,
   loadMuscleGroups,
   loadExercises,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentMuscleGroup, setCurrentMuscleGroup] = useState({});
 
   const handleButtonClick = () => {
     setIsClicked(true);
@@ -52,6 +61,38 @@ export const MuscleGroupSection = ({
     }
   };
 
+  const handleEdit = async (musclegroupID) => {
+    try {
+      const musclegroupObj = await findMGByID(musclegroupID);
+      console.log(musclegroupObj);
+
+      setCurrentMuscleGroup(musclegroupObj);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  const handleEditFormSubmit = async (formData) => {
+    try {
+      if (!musclegroupID) {
+        console.error("No musclegroup ID is set for editing");
+      }
+      await editMuscleGroup(musclegroupID, formData);
+      loadMuscleGroups();
+      setIsModalOpen(false);
+      setSelectedMuscleGroup(null);
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    loadMuscleGroups();
+    setMuscleGroupID(null);
+  };
+
   return (
     <Wrapper className={"muscle-group-section"}>
       <h2>Muscle groups</h2>
@@ -61,11 +102,20 @@ export const MuscleGroupSection = ({
             key={group._id}
             onDelete={() => handleDelete(group._id)}
             onSelect={() => handleSelectItem(group)}
-            // onEdit={() => hadleEdit(group._id)}
+            onEdit={() => handleEdit(group._id)}
           >
             {group.navn}
           </InteractiveListItem>
         ))}
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+            <Forms
+              formConfig={workoutForms.musclegroupForms[0]}
+              onSubmit={handleEditFormSubmit}
+              defaultValues={currentMuscleGroup}
+            />
+          </Modal>
+        )}
       </ul>
       {isClicked ? (
         <Forms

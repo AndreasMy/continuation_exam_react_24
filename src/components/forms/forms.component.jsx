@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-// import { getCurrentDate } from './formUtils';
 
 export const Forms = ({ formConfig, onSubmit, defaultValues = {} }) => {
   const initialFormData = formConfig.fields.reduce((acc, field) => {
@@ -11,8 +9,6 @@ export const Forms = ({ formConfig, onSubmit, defaultValues = {} }) => {
     }
     return acc;
   }, {});
-
-
 
   const [formData, setFormData] = useState(initialFormData);
 

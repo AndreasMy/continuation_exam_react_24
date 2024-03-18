@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { DELETERequest } from "../../API/apiServices";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { InteractiveListItem } from "../../molecules/InteractiveListItem/InteractiveListItem.molecule";
 import { deleteExerciseSingle, editExercise } from "../../API/apiUtilities";
@@ -18,7 +17,6 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
   const handleDelete = async (exerciseID) => {
     try {
       await deleteExerciseSingle(exerciseID);
-
       await loadExercises();
     } catch (error) {
       console.error("Error deleting muscle Exercise", error);
@@ -27,7 +25,6 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
 
   const handleEdit = async (exerciseID) => {
     try {
-      console.log(exerciseID); // logs the id
       const selectedExercise = await findExerciseByID(exerciseID);
       setCurrentExerciseId(exerciseID);
       setCurrentExercise(selectedExercise);
@@ -43,7 +40,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
     setCurrentExercise({});
   };
 
-  const handleFormSubmit = async (formData) => {
+  const handleEditFormSubmit = async (formData) => {
     try {
       if (!currentExerciseId) {
         console.error("No exercise ID is set for editing.");
@@ -79,7 +76,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
           <Modal isOpen={isModalOpen} onClose={handleModalClose}>
             <Forms
               formConfig={workoutForms.exerciseForms[0]}
-              onSubmit={handleFormSubmit}
+              onSubmit={handleEditFormSubmit}
               defaultValues={currentExercise}
             />
           </Modal>

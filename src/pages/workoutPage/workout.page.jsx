@@ -18,7 +18,7 @@ import "./workout.styles.css";
 export const WorkoutPage = () => {
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
   const [musclegroupID, setMuscleGroupID] = useState("");
-  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("");
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
 
 
 
@@ -60,7 +60,9 @@ export const WorkoutPage = () => {
               <MuscleGroupSection
                 setMuscleGroupSelected={setMuscleGroupSelected}
                 setMuscleGroupID={setMuscleGroupID}
+                musclegroupID={musclegroupID}
                 setSelectedMuscleGroup={setSelectedMuscleGroup}
+                selectedMuscleGroup={selectedMuscleGroup}
                 musclegroups={musclegroups}
                 loadMuscleGroups={loadMuscleGroups}
                 loadExercises={loadExercises}
