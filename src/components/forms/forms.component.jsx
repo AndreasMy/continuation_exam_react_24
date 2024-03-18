@@ -1,20 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 // import { getCurrentDate } from './formUtils';
 
-export const Forms = ({
-  formConfig,
-  onSubmit,
-  defaultValues = {},
-}) => {
+export const Forms = ({ formConfig, onSubmit, defaultValues = {} }) => {
   const initialFormData = formConfig.fields.reduce((acc, field) => {
-    if (field.type === 'date') {
+    if (field.type === "date") {
       acc[field.id] = defaultValues[field.id] || getCurrentDate();
     } else {
-      acc[field.id] = defaultValues[field.id] || field.defaultValue || '';
+      acc[field.id] = defaultValues[field.id] || field.defaultValue || "";
     }
     return acc;
   }, {});
+
+
 
   const [formData, setFormData] = useState(initialFormData);
 
@@ -29,19 +27,25 @@ export const Forms = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
+    setFormData({
+      name: "",
+      weight: "",
+      repetitions: "",
+      sets: "",
+    });
   };
 
   return (
-    <form className='crud-form' id={formConfig.id} onSubmit={handleSubmit}>
+    <form className="crud-form" id={formConfig.id} onSubmit={handleSubmit}>
       <h3>{formConfig.title}</h3>
       {formConfig.fields.map((field) => (
-        <div className='form-label-input' key={field.id}>
+        <div className="form-label-input" key={field.id}>
           <label htmlFor={field.id}>{field.label}</label>
-          {field.type === 'select' ? (
+          {field.type === "select" ? (
             <select
               id={field.id}
               required={field.required}
-              value={formData[field.id] || ''}
+              value={formData[field.id] || ""}
               onChange={handleChange}
             >
               {field.options.map((option) => (
@@ -52,12 +56,12 @@ export const Forms = ({
             </select>
           ) : (
             <input
-              className='registration-input'
+              className="registration-input"
               id={field.id}
               type={field.type}
               placeholder={field.placeholder}
               required={field.required}
-              value={formData[field.id] || ''}
+              value={formData[field.id] || ""}
               onChange={handleChange}
               autoFocus={field.autoFocus}
             />

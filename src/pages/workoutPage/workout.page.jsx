@@ -7,6 +7,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { MuscleGroupSection } from "../../templates/musclegroupForms/musclegroupForms.template";
 import { ExerciseSection } from "../../templates/exerciseForms/exerciseForms.template";
+import { Modal } from "../../components/modal/modal.component";
+
+
 import { ExerciseList } from "../../templates/workoutList/workoutList.template";
 import { useFetchList } from "../../API/useFetchList";
 
@@ -16,6 +19,8 @@ export const WorkoutPage = () => {
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
   const [musclegroupID, setMuscleGroupID] = useState("");
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("");
+
+
 
   const { list: musclegroups, loadList: loadMuscleGroups } =
     useFetchList("muskelgrupper");
@@ -77,6 +82,7 @@ export const WorkoutPage = () => {
           </div>
         </div>
       </Wrapper>
+
     </>
   );
 };

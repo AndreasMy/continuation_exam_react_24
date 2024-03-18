@@ -3,18 +3,61 @@ import { useState } from "react";
 import { DELETERequest } from "../../API/apiServices";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { InteractiveListItem } from "../../molecules/InteractiveListItem/InteractiveListItem.molecule";
-import { deleteExerciseSingle } from "../../API/apiUtilities";
+import { deleteExerciseSingle, editExercise } from "../../API/apiUtilities";
+import { Modal } from "../../components/modal/modal.component";
+import { Forms } from "../../components/forms/forms.component";
+import { workoutForms } from "../../data/workoutForms";
+import { findExerciseByID } from "../../API/apiUtilities";
+import { format, set } from "date-fns";
 
 export const ExerciseList = ({ exercisesList, loadExercises }) => {
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentExercise, setCurrentExercise] = useState({});
+  const [currentExerciseId, setCurrentExerciseId] = useState(null);
+
   const handleDelete = async (exerciseID) => {
     try {
-      await deleteExerciseSingle(exerciseID)
+      await deleteExerciseSingle(exerciseID);
+
       await loadExercises();
     } catch (error) {
       console.error("Error deleting muscle Exercise", error);
     }
   };
+
+  const handleEdit = async (exerciseID) => {
+    try {
+      console.log(exerciseID); // logs the id
+      const selectedExercise = await findExerciseByID(exerciseID);
+      setCurrentExerciseId(exerciseID);
+      setCurrentExercise(selectedExercise);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("Error fetching exercise details", error);
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setCurrentExerciseId(null);
+    setCurrentExercise({});
+  };
+
+  const handleFormSubmit = async (formData) => {
+    try {
+      if (!currentExerciseId) {
+        console.error("No exercise ID is set for editing.");
+        return;
+      }
+      await editExercise(currentExerciseId, formData);
+      loadExercises();
+      setIsModalOpen(false);
+      setCurrentExerciseId(null);
+    } catch (error) {
+      console.error("Error submitting edited form", error);
+    }
+  };
+
   return (
     <Wrapper className={"exercise-list"}>
       <h2>List of registered workouts...</h2>
@@ -23,14 +66,24 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
           <InteractiveListItem
             key={exercise._id}
             onDelete={() => handleDelete(exercise._id)}
+            onEdit={() => handleEdit(exercise._id)}
           >
             <p>{exercise.name}</p>
-            <p>Vekt: {exercise.weight}</p>
-            <p>Repetisjoner: {exercise.repetitions}</p>
-            <p>Sett: {exercise.sets}</p>
-            <p>Dato: {exercise.date}</p>
+            <p>Wheight: {exercise.weight}</p>
+            <p>Repetitions: {exercise.repetitions}</p>
+            <p>Sets: {exercise.sets}</p>
+            {/* <p>Dato: {exercise.date}</p> */}
           </InteractiveListItem>
         ))}
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+            <Forms
+              formConfig={workoutForms.exerciseForms[0]}
+              onSubmit={handleFormSubmit}
+              defaultValues={currentExercise}
+            />
+          </Modal>
+        )}
       </ul>
     </Wrapper>
   );

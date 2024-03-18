@@ -28,7 +28,7 @@ export const submitForm = async (
   try {
     const data = createFormData(formConfig, formData, additionalData);
     const response = await POSTRequest(data, endpoint);
-    console.log(response)
+
     if (postSubmitAction) {
       await postSubmitAction(response);
     }

@@ -1,0 +1,45 @@
+.modal-overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: rgba(62, 62, 62, 0.471);
+  backdrop-filter: blur(8px);
+}
+
+.modal-overlay.open {
+    display: block;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 140px;
+  min-width: 300px;
+  padding: 15px;
+  background-color: rgb(255, 255, 255);
+
+  border-radius: 8px;
+}
+
+.modal-content {
+  flex: 1;
+  display: flex;
+}
+
+.modal-close-button {
+  height: 20px;
+  width: 20px;
+  color: antiquewhite;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: rgb(228, 58, 24);
+  align-self: end;
+}
