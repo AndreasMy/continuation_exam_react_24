@@ -22,18 +22,11 @@ export const populateMuscleGroupArray = async (exerciseID, muscleGroupID) => {
   }
 };
 
-export const deleteExerciseSingle = async (exerciseID) => {
-  try {
-    await makeAPIRequest("ovelser", { method: "DELETE", id: exerciseID });
-  } catch (error) {
-    console.error("Error deleting exercise", error);
-    throw error;
-  }
-};
-
 export const deleteExercises = async (exerciseIDs) => {
+  const arrToDelete = Array.isArray(exerciseIDs) ? exerciseIDs : [exerciseIDs];
+
   try {
-    for (const id of exerciseIDs) {
+    for (const id of arrToDelete) {
       await makeAPIRequest("ovelser", { method: "DELETE", id: id });
     }
   } catch (error) {
@@ -52,6 +45,52 @@ export const fetchExercisesByMuscleGroupID = async (musclegroupID) => {
     return arrayData;
   } catch (error) {
     console.error("Error finding array items", error);
+  }
+};
+
+export const deleteExerciseFromMuscleGroup = async (exerciseID) => {
+  try {
+    const exercise = await makeAPIRequest("ovelser", {
+      method: "GET",
+      id: exerciseID,
+    });
+    console.log(exercise);
+    if (!exercise || !exercise.muskelgruppe) {
+      console.error("Exercise or associated musclegroup not found");
+      return;
+    }
+
+    const muscleGroupID = exercise.muskelgruppe;
+
+    const muscleGroup = await makeAPIRequest("muskelgrupper", {
+      method: "GET",
+      id: muscleGroupID,
+    });
+    console.log(muscleGroup);
+    if (!muscleGroup || !muscleGroup.ovelser) {
+      console.error("Muscle group or its exercises array not found");
+      return;
+    }
+    const muscleGroupName = muscleGroup.name;
+    const updatedOvelser = muscleGroup.ovelser.filter(
+      (id) => id !== exerciseID
+    );
+    console.log(updatedOvelser);
+
+    const updatedMuscleGroup = {
+      muscleGroupName,
+      ovelser: updatedOvelser,
+    };
+    console.log(updatedOvelser);
+
+    await makeAPIRequest("muskelgrupper", {
+      method: "PUT",
+      obj: updatedMuscleGroup,
+      id: muscleGroupID,
+    });
+  } catch (error) {
+    console.error("Error finding array items", error);
+    throw error;
   }
 };
 

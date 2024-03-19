@@ -34,7 +34,6 @@ export const makeAPIRequest = async (
   }
 };
 
-
 /* const handleResponse = async (response) => {
   if (!response.ok) {
     const errorText = await response.text();

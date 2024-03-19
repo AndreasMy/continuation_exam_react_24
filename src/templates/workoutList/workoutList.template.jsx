@@ -2,10 +2,11 @@
 import { useState } from "react";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { InteractiveListItem } from "../../molecules/InteractiveListItem/InteractiveListItem.molecule";
-import { deleteExerciseSingle } from "../../API/apiUtilities";
+import { deleteExercises } from "../../API/apiUtilities";
 import { Modal } from "../../components/modal/modal.component";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
+import { deleteExerciseFromMuscleGroup } from "../../API/apiUtilities";
 
 import { makeAPIRequest } from "../../API/apiServices";
 import { format, set } from "date-fns";
@@ -17,7 +18,8 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
 
   const handleDelete = async (exerciseID) => {
     try {
-      await deleteExerciseSingle(exerciseID);
+      await deleteExerciseFromMuscleGroup(exerciseID);
+      await deleteExercises(exerciseID);
       await loadExercises();
     } catch (error) {
       console.error("Error deleting muscle Exercise", error);

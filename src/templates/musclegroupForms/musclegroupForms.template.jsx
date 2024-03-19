@@ -64,7 +64,6 @@ export const MuscleGroupSection = ({
         method: "GET",
         id: musclegroupID,
       });
-      console.log(musclegroupObj);
 
       setCurrentMuscleGroup(musclegroupObj);
       setIsModalOpen(true);
@@ -86,8 +85,8 @@ export const MuscleGroupSection = ({
 
       const updatedMuscleGroup = {
         ...formData,
-        ovelser: currentMuscleGroup.ovelser
-      }
+        ovelser: currentMuscleGroup.ovelser,
+      };
 
       await makeAPIRequest("muskelgrupper", {
         method: "PUT",
