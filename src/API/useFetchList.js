@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { fetchEndpoint } from "../API/apiServices";
+import { makeAPIRequest } from "../API/apiServices";
 
 export const useFetchList = (endpoint) => {
   const [list, setList] = useState([]);
@@ -9,7 +9,7 @@ export const useFetchList = (endpoint) => {
   const loadList = useCallback(async () => {
     setIslodaing(true);
     try {
-      const data = await fetchEndpoint(endpoint);
+      const data = await makeAPIRequest(endpoint);
       setList(data);
     } catch (error) {
       console.error(`Error fetching ${endpoint}`, error);

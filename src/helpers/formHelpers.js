@@ -1,4 +1,4 @@
-import { POSTRequest } from "/src/API/apiServices.js";
+import { makeAPIRequest } from "/src/API/apiServices.js";
 
 export const stringifyFormData = (formData, formConfig) => {
   const formattedData = {};
@@ -27,7 +27,10 @@ export const submitForm = async (
 ) => {
   try {
     const data = createFormData(formConfig, formData, additionalData);
-    const response = await POSTRequest(data, endpoint);
+    const response = await makeAPIRequest(endpoint, {
+      method: "POST",
+      obj: data,
+    });
 
     if (postSubmitAction) {
       await postSubmitAction(response);

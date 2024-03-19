@@ -9,12 +9,9 @@ import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { submitForm } from "../../helpers/formHelpers";
 import { Modal } from "../../components/modal/modal.component";
+import { makeAPIRequest } from "../../API/apiServices";
 
-import {
-  deleteMany,
-  editMuscleGroup,
-  findMGByID,
-} from "../../API/apiUtilities";
+import { deleteMuscleGroupAndExercises } from "../../API/apiUtilities";
 
 export const MuscleGroupSection = ({
   setMuscleGroupID,
@@ -53,7 +50,7 @@ export const MuscleGroupSection = ({
 
   const handleDelete = async (id) => {
     try {
-      await deleteMany(id);
+      await deleteMuscleGroupAndExercises(id);
       await loadExercises();
       await loadMuscleGroups();
     } catch (error) {
@@ -63,7 +60,10 @@ export const MuscleGroupSection = ({
 
   const handleEdit = async (musclegroupID) => {
     try {
-      const musclegroupObj = await findMGByID(musclegroupID);
+      const musclegroupObj = await makeAPIRequest("muskelgrupper", {
+        method: "GET",
+        id: musclegroupID,
+      });
       console.log(musclegroupObj);
 
       setCurrentMuscleGroup(musclegroupObj);
@@ -78,10 +78,27 @@ export const MuscleGroupSection = ({
       if (!musclegroupID) {
         console.error("No musclegroup ID is set for editing");
       }
-      await editMuscleGroup(musclegroupID, formData);
+
+      const currentMuscleGroup = await makeAPIRequest("muskelgrupper", {
+        method: "GET",
+        id: musclegroupID,
+      });
+
+      const updatedMuscleGroup = {
+        ...formData,
+        ovelser: currentMuscleGroup.ovelser
+      }
+
+      await makeAPIRequest("muskelgrupper", {
+        method: "PUT",
+        obj: updatedMuscleGroup,
+        id: musclegroupID,
+      });
+
       loadMuscleGroups();
       setIsModalOpen(false);
       setSelectedMuscleGroup(null);
+      setMuscleGroupID(null);
     } catch (error) {
       console.error("Error", error);
     }

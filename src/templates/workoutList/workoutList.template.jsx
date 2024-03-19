@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { InteractiveListItem } from "../../molecules/InteractiveListItem/InteractiveListItem.molecule";
-import { deleteExerciseSingle, editExercise } from "../../API/apiUtilities";
+import { deleteExerciseSingle } from "../../API/apiUtilities";
 import { Modal } from "../../components/modal/modal.component";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
-import { findExerciseByID } from "../../API/apiUtilities";
+
+import { makeAPIRequest } from "../../API/apiServices";
 import { format, set } from "date-fns";
 
 export const ExerciseList = ({ exercisesList, loadExercises }) => {
@@ -25,7 +26,10 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
 
   const handleEdit = async (exerciseID) => {
     try {
-      const selectedExercise = await findExerciseByID(exerciseID);
+      const selectedExercise = await makeAPIRequest("ovelser", {
+        method: "GET",
+        id: exerciseID,
+      });
       setCurrentExerciseId(exerciseID);
       setCurrentExercise(selectedExercise);
       setIsModalOpen(true);
@@ -46,7 +50,11 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
         console.error("No exercise ID is set for editing.");
         return;
       }
-      await editExercise(currentExerciseId, formData);
+      await makeAPIRequest("ovelser", {
+        method: "PUT",
+        obj: formData,
+        id: currentExerciseId,
+      });
       loadExercises();
       setIsModalOpen(false);
       setCurrentExerciseId(null);

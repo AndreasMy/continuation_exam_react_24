@@ -1,77 +1,30 @@
-import {
-  DELETERequest,
-  fetchWithID,
-  POSTRequest,
-  PUTRequest,
-} from "./apiServices";
+import { makeAPIRequest } from "./apiServices";
 
 export const populateMuscleGroupArray = async (exerciseID, muscleGroupID) => {
   try {
-    const muscleGroup = await fetchWithID("muskelgrupper", muscleGroupID); //muscleGroupID
+    const muscleGroup = await makeAPIRequest("muskelgrupper", {
+      method: "GET",
+      id: muscleGroupID,
+    });
     if (muscleGroup) {
       const updatedMG = {
         navn: muscleGroup.navn,
         ovelser: [...muscleGroup.ovelser, exerciseID],
       };
-      await PUTRequest(updatedMG, "muskelgrupper", muscleGroupID);
+      await makeAPIRequest("muskelgrupper", {
+        method: "PUT",
+        obj: updatedMG,
+        id: muscleGroupID,
+      });
     }
   } catch (error) {
     console.error("Error updating muscle group", error);
   }
 };
 
-// misleading function title
-export const findMuscleGroupByID = async (muscleGroupID) => {
-  try {
-    const data = await fetchWithID("muskelgrupper", muscleGroupID);
-    const arrayData = [...data.ovelser];
-    return arrayData;
-  } catch (error) {
-    console.error("Error finding array items", error);
-  }
-};
-
-export const findMGByID = async (muscleGroupID) => {
-  try {
-    const data = await fetchWithID("muskelgrupper", muscleGroupID);
-    return data;
-  } catch (error) {
-    console.error("Error finding array items", error);
-  }
-};
-
-export const editMuscleGroup = async (
-  muscleGroupID,
-  updatedMuscleGroupData
-) => {
-  try {
-    await PUTRequest(updatedMuscleGroupData, "muskelgrupper", muscleGroupID);
-  } catch (error) {
-    console.error("Error updating muscle group", error);
-  }
-};
-
-export const findExerciseByID = async (exerciseID) => {
-  try {
-    const data = await fetchWithID("ovelser", exerciseID);
-    return data;
-  } catch (error) {
-    console.error("Error finding array items", error);
-  }
-};
-
-export const editExercise = async (exerciseID, updatedEcxerciseData) => {
-  try {
-    await PUTRequest(updatedEcxerciseData, "ovelser", exerciseID);
-  } catch (error) {
-    console.error("Error updating entry", error);
-  }
-};
-
 export const deleteExerciseSingle = async (exerciseID) => {
   try {
-    await DELETERequest(exerciseID, "ovelser");
-    console.log(`Exercise with ID ${exerciseID} deleted successfully.`);
+    await makeAPIRequest("ovelser", { method: "DELETE", id: exerciseID });
   } catch (error) {
     console.error("Error deleting exercise", error);
     throw error;
@@ -81,7 +34,7 @@ export const deleteExerciseSingle = async (exerciseID) => {
 export const deleteExercises = async (exerciseIDs) => {
   try {
     for (const id of exerciseIDs) {
-      await DELETERequest(id, "ovelser");
+      await makeAPIRequest("ovelser", { method: "DELETE", id: id });
     }
   } catch (error) {
     console.error("Error deleting exercise", error);
@@ -89,15 +42,29 @@ export const deleteExercises = async (exerciseIDs) => {
   }
 };
 
-export const deleteMany = async (muscleGroupID) => {
+export const fetchExercisesByMuscleGroupID = async (musclegroupID) => {
   try {
-    const exerciseIDs = await findMuscleGroupByID(muscleGroupID);
+    const data = await makeAPIRequest("muskelgrupper", {
+      method: "GET",
+      id: musclegroupID,
+    });
+    const arrayData = [...data.ovelser];
+    return arrayData;
+  } catch (error) {
+    console.error("Error finding array items", error);
+  }
+};
 
+export const deleteMuscleGroupAndExercises = async (musclegroupID) => {
+  try {
+    const exerciseIDs = await fetchExercisesByMuscleGroupID(musclegroupID);
     if (exerciseIDs.length) {
       await deleteExercises(exerciseIDs);
     }
-
-    await DELETERequest(muscleGroupID, "muskelgrupper");
+    await makeAPIRequest("muskelgrupper", {
+      method: "DELETE",
+      id: musclegroupID,
+    });
   } catch (error) {
     console.error("Error deleting muscle group and its exercises", error);
   }
