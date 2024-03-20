@@ -14,6 +14,7 @@ import { ExerciseList } from "../../templates/workoutList/workoutList.template";
 import { useFetchList } from "../../API/useFetchList";
 
 import "./workout.styles.css";
+import { Button } from "../../components/button/button.component";
 
 export const WorkoutPage = () => {
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
@@ -82,6 +83,7 @@ export const WorkoutPage = () => {
               />
             </Wrapper>
           </div>
+        <Button>Open modal</Button>
         </div>
       </Wrapper>
 

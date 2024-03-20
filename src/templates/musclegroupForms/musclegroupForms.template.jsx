@@ -17,7 +17,6 @@ export const MuscleGroupSection = ({
   setMuscleGroupID,
   musclegroupID,
   setSelectedMuscleGroup,
-  selectedMuscleGroup,
   setMuscleGroupSelected,
   musclegroups,
   loadMuscleGroups,

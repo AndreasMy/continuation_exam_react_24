@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body,
+html {
+  background-color: var(--primary-background-color);
+  font-family: var(--font-stack);
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+li,
+.navbar-link-elem {
+  color: var(--text-color);
+}
+
+
+.home-welcome-wrapper,
+.home-stat-wrapper {
+  background-color: #25292d;
+}
+
+.welcome-banner {
+  background-color: #28333d;
+}
+
+:root {
+  --primary-color: #252a2d;
+  --primary-background-color: #141516;
+  --text-color: antiquewhite;
+  
+  --font-stack: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --list_style: none;
+}

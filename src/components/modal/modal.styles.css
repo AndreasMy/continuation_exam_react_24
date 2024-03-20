@@ -9,8 +9,8 @@
   right: 0;
   bottom: 0;
 
-  background-color: rgba(62, 62, 62, 0.471);
-  backdrop-filter: blur(8px);
+  background-color: rgba(4, 14, 32, 0.471);
+  backdrop-filter: blur(24px);
 }
 
 .modal-overlay.open {
@@ -24,14 +24,14 @@
   min-height: 140px;
   min-width: 300px;
   padding: 15px;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--primary-color);
 
   border-radius: 8px;
 }
 
 .modal-content {
-  flex: 1;
   display: flex;
+  
 }
 
 .modal-close-button {

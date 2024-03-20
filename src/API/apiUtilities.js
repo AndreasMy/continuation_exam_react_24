@@ -54,19 +54,18 @@ export const deleteExerciseFromMuscleGroup = async (exerciseID) => {
       method: "GET",
       id: exerciseID,
     });
-    console.log(exercise);
+    
     if (!exercise || !exercise.muskelgruppe) {
       console.error("Exercise or associated musclegroup not found");
       return;
     }
 
     const muscleGroupID = exercise.muskelgruppe;
-
     const muscleGroup = await makeAPIRequest("muskelgrupper", {
       method: "GET",
       id: muscleGroupID,
     });
-    console.log(muscleGroup);
+
     if (!muscleGroup || !muscleGroup.ovelser) {
       console.error("Muscle group or its exercises array not found");
       return;
@@ -75,13 +74,11 @@ export const deleteExerciseFromMuscleGroup = async (exerciseID) => {
     const updatedOvelser = muscleGroup.ovelser.filter(
       (id) => id !== exerciseID
     );
-    console.log(updatedOvelser);
 
     const updatedMuscleGroup = {
       muscleGroupName,
       ovelser: updatedOvelser,
     };
-    console.log(updatedOvelser);
 
     await makeAPIRequest("muskelgrupper", {
       method: "PUT",
