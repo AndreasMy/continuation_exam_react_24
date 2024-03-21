@@ -7,7 +7,6 @@ import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Button } from "../../components/button/button.component";
 
 import { MuscleGroupSection } from "../../templates/musclegroupForms/musclegroupForms.template";
-import { ExerciseList } from "../../templates/workoutList/workoutList.template";
 import { ExerciseSection } from "../../templates/exerciseForms/exerciseForms.template";
 
 
@@ -15,8 +14,6 @@ export const WorkoutEntry = () => {
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
   const [musclegroupID, setMuscleGroupID] = useState("");
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
-
-
 
   const { list: musclegroups, loadList: loadMuscleGroups } =
     useFetchList("muskelgrupper");
@@ -77,7 +74,7 @@ export const WorkoutEntry = () => {
           </div>
         </Wrapper>
         <Wrapper className="right" isContainer={true}>
-        <Wrapper className="ui-wrapper">
+        <Wrapper className="modal-forms" >
               <MuscleGroupSection
                 setMuscleGroupSelected={setMuscleGroupSelected}
                 setMuscleGroupID={setMuscleGroupID}
@@ -97,10 +94,10 @@ export const WorkoutEntry = () => {
                 loadExercises={loadExercises}
               />
 
-              <ExerciseList
+{/*               <ExerciseList
                 exercisesList={exercisesList}
                 loadExercises={loadExercises}
-              />
+              /> */}
             </Wrapper>
         </Wrapper>
       </Wrapper>

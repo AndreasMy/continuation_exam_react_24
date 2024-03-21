@@ -9,15 +9,15 @@ export const AppLayout = ({ children }) => {
   const { isModalOpen, modalContent, closeModal } = useModal();
   return (
     <>
-      {isModalOpen && (
-        <GlobalModal closeModal={closeModal}>{modalContent}</GlobalModal>
-      )}
       <header>
         <NavBar />
       </header>
       <main>
         <div className="main-content">{children}</div>
       </main>
+      {isModalOpen && (
+        <GlobalModal closeModal={closeModal}>{modalContent}</GlobalModal>
+      )}
     </>
   );
 };
