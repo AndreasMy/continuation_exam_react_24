@@ -5,8 +5,8 @@
   flex: 1;
 }
 
-.left,
-.right {
+.container.left,
+.container.right {
   flex: 1;
   background-color: #1d2124;
   border-radius: 0;

@@ -4,7 +4,13 @@ import { PageSection } from "../../components/pageSection/pageSection.component"
 // Styles are inherited from PageSection component
 // Keep that in mind when updating the component to refactor this and other pages
 
+import { Button } from "../../components/button/button.component";
+import { useModal } from "../../context/modalContext";
+import { WorkoutEntry } from "../../molecules/workoutEntry/workoutEntry.molecules";
+
 export const HomePage = () => {
+  const { openModal } = useModal();
+
   return (
     <>
       <Wrapper className="page-content-wrapper">
@@ -48,6 +54,9 @@ export const HomePage = () => {
               <div className="calendar-info-wrapper"></div>
               {/* div above will be a container component */}
             </div>
+            <Button onClick={() => openModal(<WorkoutEntry />)}>
+              Open Exercises From Global Scope
+            </Button>
           </div>
         </div>
 

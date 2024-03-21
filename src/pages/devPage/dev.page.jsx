@@ -3,29 +3,19 @@ import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { WorkoutEntry } from "../../molecules/workoutEntry/workoutEntry.molecules";
 import { Button } from "../../components/button/button.component";
 
-import { useState } from "react";
+import { useModal } from "../../context/modalContext";
 
 export const DevPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
+  const { openModal } = useModal();
 
   return (
     <>
       <Wrapper className="page-content-wrapper">
         <h1>Dev page</h1>
-        <Button onClick={handleOpenModal}>Cick me</Button>
+        <Button onClick={() => openModal(<WorkoutEntry />)}>
+          Open Exercises From Global Scope
+        </Button>
       </Wrapper>
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-          <WorkoutEntry />
-        </Modal>
-      )}
     </>
   );
 };

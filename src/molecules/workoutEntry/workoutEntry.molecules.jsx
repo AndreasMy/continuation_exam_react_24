@@ -1,24 +1,40 @@
 import "./workoutEntry.styles.css";
+import * as React from "react";
+import { useState, useEffect } from "react";
+import { useFetchList } from "../../API/useFetchList";
 
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Button } from "../../components/button/button.component";
-import { Forms } from "../../components/forms/forms.component";
-import { workoutForms } from "../../data/workoutForms";
+
+import { MuscleGroupSection } from "../../templates/musclegroupForms/musclegroupForms.template";
+import { ExerciseList } from "../../templates/workoutList/workoutList.template";
+import { ExerciseSection } from "../../templates/exerciseForms/exerciseForms.template";
+
 
 export const WorkoutEntry = () => {
-  const handleFormSubmit = async (FormData) => {
-    if (musclegroupSelected) {
-      await submitForm(
-        FormData,
-        workoutForms.exerciseForms[0],
-        "ovelser",
-        { muskelgruppe: musclegroupID },
-        async (response) => {
-          await populateMuscleGroupArray(response._id, musclegroupID);
-          await loadExercises();
-        }
-      );
-    }
+  const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
+  const [musclegroupID, setMuscleGroupID] = useState("");
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
+
+
+
+  const { list: musclegroups, loadList: loadMuscleGroups } =
+    useFetchList("muskelgrupper");
+  const { list: exercisesList, loadList: loadExercises } =
+    useFetchList("ovelser");
+
+  useEffect(() => {
+    loadMuscleGroups();
+    loadExercises();
+  }, [loadMuscleGroups, loadExercises]);
+
+  const [startDate, setDate] = React.useState(new Date());
+  const defaultEndDate = new Date();
+  defaultEndDate.setDate(defaultEndDate.getDate() + 7);
+  // const today = new Date();
+
+  const selectDateHandler = (date) => {
+    setDate(date);
   };
   // Manage state here
   return (
@@ -61,15 +77,31 @@ export const WorkoutEntry = () => {
           </div>
         </Wrapper>
         <Wrapper className="right" isContainer={true}>
-          <Forms
-            onSubmit={handleFormSubmit}
-            formConfig={workoutForms.musclegroupForms[0]}
-          />
-          <Forms
-            onSubmit={handleFormSubmit}
-            formConfig={workoutForms.exerciseForms[0]}
-          />
-          {/* Conditionally rendered forms here */}
+        <Wrapper className="ui-wrapper">
+              <MuscleGroupSection
+                setMuscleGroupSelected={setMuscleGroupSelected}
+                setMuscleGroupID={setMuscleGroupID}
+                musclegroupID={musclegroupID}
+                setSelectedMuscleGroup={setSelectedMuscleGroup}
+                selectedMuscleGroup={selectedMuscleGroup}
+                musclegroups={musclegroups}
+                loadMuscleGroups={loadMuscleGroups}
+                loadExercises={loadExercises}
+              />
+
+              <ExerciseSection
+                musclegroupSelected={musclegroupSelected}
+                musclegroupID={musclegroupID}
+                selectedMuscleGroup={selectedMuscleGroup}
+                exercisesList={exercisesList}
+                loadExercises={loadExercises}
+              />
+
+              <ExerciseList
+                exercisesList={exercisesList}
+                loadExercises={loadExercises}
+              />
+            </Wrapper>
         </Wrapper>
       </Wrapper>
     </>
