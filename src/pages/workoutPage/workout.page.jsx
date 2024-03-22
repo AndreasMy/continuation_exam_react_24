@@ -33,6 +33,7 @@ export const WorkoutPage = () => {
             <Button onClick={() => openModal(<WorkoutEntry />)}>
               Open Exercises From Global Scope
             </Button>
+            
             <ExerciseList
               exercisesList={exercisesList}
               loadExercises={loadExercises}

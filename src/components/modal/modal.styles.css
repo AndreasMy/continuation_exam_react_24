@@ -10,7 +10,7 @@
   bottom: 0;
 
   background-color: rgba(4, 14, 32, 0.471);
-  backdrop-filter: blur(24px);
+  backdrop-filter: blur(8px);
 }
 
 .modal-overlay.open {
@@ -32,6 +32,19 @@
 .modal-content {
   display: flex;
   
+}
+
+.wrapper.exercise-list {
+  display: flex;
+  flex-direction: column;
+
+}
+
+ul {
+  display: flex;
+
+  
+
 }
 
 .modal-close-button {
