@@ -7,7 +7,7 @@ import { useFetchList } from "../../API/useFetchList";
 
 import { Button } from "../../components/button/button.component";
 import { useModal } from "../../context/modalContext";
-import { WorkoutEntry } from "../../molecules/workoutEntry/workoutEntry.molecules";
+import { WorkoutEntryCard } from "../../molecules/workoutEntryCard/workoutEntryCard.template";
 
 import "./workout.styles.css";
 
@@ -30,7 +30,7 @@ export const WorkoutPage = () => {
           <div className="section-banner welcome-banner"></div>
           <div className="section-container">
             <h1>Add Workout</h1>
-            <Button onClick={() => openModal(<WorkoutEntry />)}>
+            <Button onClick={() => openModal(<WorkoutEntryCard />)}>
               Open Exercises From Global Scope
             </Button>
             

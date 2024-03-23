@@ -1,18 +1,19 @@
 /* eslint-disable react/prop-types */
 import { Wrapper } from "../../components/wrapper/wrapper.component";
-import { submitForm } from "../../helpers/formHelpers";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
-
+import { submitForm } from "../../helpers/formHelpers";
 import { populateMuscleGroupArray } from "../../API/apiUtilities";
+import { useWorkout } from "../../context/workoutContext";
 
-export const ExerciseSection = ({
-  musclegroupID,
-  musclegroupSelected,
+export const ExerciseForms = ({
   selectedMuscleGroup,
-  loadExercises,
+  musclegroupSelected,
+  musclegroupID,
 }) => {
-  const handleFormSubmit = async (FormData) => {
+  const { loadExercises } = useWorkout();
+
+  const handleExerciseFormSubmit = async (FormData) => {
     if (musclegroupSelected) {
       await submitForm(
         FormData,
@@ -32,7 +33,12 @@ export const ExerciseSection = ({
       <h2>Add Exercise</h2>
       <h3>Muscle group: {selectedMuscleGroup}</h3>
       <Forms
-        onSubmit={handleFormSubmit}
+        onSubmit={(formData) =>
+          handleExerciseFormSubmit(formData, {
+            musclegroupSelected,
+            musclegroupID,
+          })
+        }
         formConfig={workoutForms.exerciseForms[0]}
       />
     </Wrapper>

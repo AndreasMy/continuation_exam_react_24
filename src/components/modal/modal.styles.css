@@ -34,9 +34,10 @@
   
 }
 
-.wrapper.exercise-list {
+.exercise-list-ul {
   display: flex;
   flex-direction: column;
+  min-height: 40%;
 
 }
 

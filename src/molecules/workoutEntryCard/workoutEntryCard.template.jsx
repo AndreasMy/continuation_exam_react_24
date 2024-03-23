@@ -1,89 +1,100 @@
 import "./workoutEntryCard.styles.css";
 
-import { MuscleGroupSection } from "../../templates/musclegroupForms/musclegroupForms.template";
+import { MuscleGroupForms } from "../../templates/musclegroupForms/musclegroupForms.template";
 import { ExerciseList } from "../../templates/workoutList/workoutList.template";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Button } from "../../components/button/button.component";
-import { ExerciseSection } from "../../templates/exerciseForms/exerciseForms.template";
+import { Forms } from "../../components/forms/forms.component";
+import { workoutForms } from "../../data/workoutForms";
+import { useModal } from "../../context/modalContext";
+import { useState, useEffect } from "react";
+import { useFetchList } from "../../API/useFetchList";
+import { handleMuscleGroupFormSubmit } from "../../helpers/formLogicHelpers";
+import { useWorkout } from "../../context/workoutContext";
+import { ExerciseForms } from "../../templates/exerciseForms/exerciseForms.template";
+import { handleDeleteExercise } from "../../helpers/formLogicHelpers";
 
-export const WorkoutEntryCard = ({
-  musclegroups = [],
-  loadMuscleGroups,
-  setMuscleGroupID,
-  setMuscleGroupSelected,
-  musclegroupID, //! Greyed out?
-  setSelectedMuscleGroup,
-  loadExercises,
-  exercisesList,
-  musclegroupSelected,
-  isModalOpen,
-  isClicked,
-  handleButtonClick,
-  currentExercise,
-  currentMuscleGroup,
-  handleSelectMuscleGroupItem,
-  handleEditMuscleGroup,
-  handleDeleteMuscleGroup,
-  handleEditMuscleGroupFormSubmit,
-  handleMuscleGroupFormSubmit,
-  handleEditExercise,
-  handleDeleteExercise,
-  handleModalCloseEX,
-  handleEditExerciseFormSubmit,
-  handleModalCloseMG,
-}) => {
+export const WorkoutEntryCard = ({}) => {
+  const {
+    musclegroupID,
+    setMuscleGroupID,
+    setSelectedMuscleGroup,
+    setMuscleGroupSelected,
+    musclegroups,
+    loadMuscleGroups,
+    exercisesList,
+    loadExercises,
+    musclegroupSelected,
+  } = useWorkout();
+  console.log(exercisesList);
+  const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    console.log("Fetched exercises:", exercisesList);
+    loadMuscleGroups();
+    loadExercises();
+  }, [loadMuscleGroups, loadExercises]);
+
+  const handleButtonClick = () => {
+    setIsClicked(true);
+  };
+
+  const handleSelectMuscleGroupItem = (group) => {
+    console.log(group);
+    setMuscleGroupSelected(true);
+    setMuscleGroupID(group._id);
+    console.log(musclegroupID); // is logged
+    setSelectedMuscleGroup(group.navn);
+  };
+
   const filterExercisesByMuscleGroup = (musclegroupID) => {
-    console.log("Filtering exercises for muscle group:", musclegroupID);
+    console.log("Current musclegroupID for filtering:", musclegroupID);
     const filteredExercises = exercisesList.filter(
-      (exercise) => exercise.musclegroupId === musclegroupID
+      (exercise) => exercise.muskelgruppe === musclegroupID
     );
-    console.log("Filtered exercises:", filteredExercises);
+    console.log("Filtered exercises:", filteredExercises); // returns empty array
     return filteredExercises;
   };
 
-  console.log(musclegroups);
-  console.log(exercisesList);
+  const { openModal } = useModal();
 
   return (
     <Wrapper className="workout-card-large">
       {musclegroups.map((group) => (
         <div key={group._id}>
-          <MuscleGroupSection
-            group={group}
-            setMuscleGroupID={setMuscleGroupID}
-            setMuscleGroupSelected={setMuscleGroupSelected}
-            setSelectedMuscleGroup={setSelectedMuscleGroup}
+          <MuscleGroupForms
             loadMuscleGroups={loadMuscleGroups}
             loadExercises={loadExercises}
-            musclegroupSelected={musclegroupSelected}
-            isModalOpen={isModalOpen}
-            currentMuscleGroup={currentMuscleGroup}
+            group={group}
             handleSelectMuscleGroupItem={handleSelectMuscleGroupItem}
-            handleEditMuscleGroup={handleEditMuscleGroup}
-            handleDeleteMuscleGroup={handleDeleteMuscleGroup}
-            handleEditMuscleGroupFormSubmit={handleEditMuscleGroupFormSubmit}
-            handleMuscleGroupFormSubmit={handleMuscleGroupFormSubmit}
-            handleButtonClick={handleButtonClick}
-            isClicked={isClicked}
-            handleModalCloseMG={handleModalCloseMG}
-            musclegroups={musclegroups}
           />
-
+          <Button
+            onClick={() =>
+              openModal(
+                <ExerciseForms
+                  musclegroupSelected={musclegroupSelected}
+                  musclegroupID={musclegroupID}
+                  loadExercises={loadExercises}
+                />
+              )
+            }
+          >
+            Add Exercise
+          </Button>
           <ExerciseList
             exercisesList={filterExercisesByMuscleGroup(group._id)}
-            loadExercises={loadExercises}
-            isModalOpen={isModalOpen}
-            currentExercise={currentExercise}
             handleDeleteExercise={handleDeleteExercise}
-            handleEditExercise={handleEditExercise}
-            handleModalCloseEX={handleModalCloseEX}
-            handleEditExerciseFormSubmit={handleEditExerciseFormSubmit}
           />
         </div>
       ))}
       {isClicked ? (
         <Forms
-          onSubmit={handleMuscleGroupFormSubmit}
+          onSubmit={(formData) =>
+            handleMuscleGroupFormSubmit(formData, {
+              loadMuscleGroups,
+              setIsClicked,
+            })
+          }
           formConfig={workoutForms.musclegroupForms[0]}
         />
       ) : (
@@ -91,7 +102,6 @@ export const WorkoutEntryCard = ({
           Add a muscle group..
         </Button>
       )}
-
     </Wrapper>
   );
 };

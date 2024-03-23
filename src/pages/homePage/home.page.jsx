@@ -6,8 +6,7 @@ import { PageSection } from "../../components/pageSection/pageSection.component"
 
 import { Button } from "../../components/button/button.component";
 import { useModal } from "../../context/modalContext";
-import { WorkoutEntry } from "../../molecules/workoutEntry/workoutEntry.molecules";
-
+import { WorkoutEntryCard } from "../../molecules/workoutEntryCard/workoutEntryCard.template";
 export const HomePage = () => {
   const { openModal } = useModal();
 
@@ -54,7 +53,7 @@ export const HomePage = () => {
               <div className="calendar-info-wrapper"></div>
               {/* div above will be a container component */}
             </div>
-            <Button onClick={() => openModal(<WorkoutEntry />)}>
+            <Button onClick={() => openModal(<WorkoutEntryCard />)}>
               Open Exercises From Global Scope
             </Button>
           </div>
