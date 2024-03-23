@@ -8,7 +8,6 @@ import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { useModal } from "../../context/modalContext";
 import { useState, useEffect } from "react";
-import { useFetchList } from "../../API/useFetchList";
 import { handleMuscleGroupFormSubmit } from "../../helpers/formLogicHelpers";
 import { useWorkout } from "../../context/workoutContext";
 import { ExerciseForms } from "../../templates/exerciseForms/exerciseForms.template";
@@ -71,8 +70,9 @@ export const WorkoutEntryCard = ({}) => {
           <ExerciseList
             exercisesList={filterExercisesByMuscleGroup(group._id)}
             handleDeleteExercise={handleDeleteExercise}
+            loadExercises={loadExercises}
           />
-          <Button
+          <Button className="add-exercise-button"
             onClick={() =>
               openModal(
                 <ExerciseForms

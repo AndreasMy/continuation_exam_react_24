@@ -39,3 +39,10 @@
   background-color: rgb(61, 72, 78);
   margin: 12px 0;
 }
+
+.add-exercise-button {
+  width: 100%;
+  padding: 16px;
+  font-size: 1rem;
+  margin: 10px 0;
+}

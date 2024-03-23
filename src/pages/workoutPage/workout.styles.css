@@ -19,13 +19,13 @@
 }
 
 .add-btn {
-  color: rgb(126, 74, 62);
+  color: rgb(242, 88, 53);
 }
 
 .add-btn,
 .list-item {
   text-align: center;
-  background-color: rgb(23, 23, 25);
+  background-color: rgb(31, 31, 34);
   box-shadow: rgba(0, 0, 0, 0.096) 0px 6px 12px;
   cursor: pointer;
 }
@@ -58,7 +58,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 4px 0;
   border-radius: 5px;
   font-size: 1.2rem;
@@ -93,12 +93,17 @@ label {
 }
 
 .delete-btn {
-  background-color: rgb(216, 83, 43);
+  background-color: rgb(78, 43, 32);
   color: antiquewhite;
 }
 
+.delete-btn:hover {
+  background-color: rgb(216, 83, 43);
+}
+
 .edit-btn {
-  background-color: rgb(29, 115, 165);
+  background-color: rgb(39, 62, 76);
+
   color: antiquewhite;
 }
 

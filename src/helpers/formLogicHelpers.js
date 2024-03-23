@@ -1,8 +1,12 @@
 import { submitForm } from "./formHelpers";
 import { workoutForms } from "../data/workoutForms";
-import { deleteMuscleGroupAndExercises } from "../API/apiUtilities";
 import { makeAPIRequest } from "../API/apiServices";
-import { populateMuscleGroupArray } from "../API/apiUtilities";
+import {
+  deleteExerciseFromMuscleGroup,
+  deleteExercises,
+  populateMuscleGroupArray,
+  deleteMuscleGroupAndExercises,
+} from "../API/apiUtilities";
 
 /* const { list: musclegroups, loadList: loadMuscleGroups } =
   useFetchList("muskelgrupper");
@@ -24,10 +28,15 @@ export const handleMuscleGroupFormSubmit = async (
   setIsClicked(false);
 };
 
-
 export const handleEditMuscleGroupFormSubmit = async (
   formData,
-  { loadMuscleGroups, muscleGroupId, setIsModalOpen, setSelectedMuscleGroup, setMuscleGroupID }
+  {
+    loadMuscleGroups,
+    muscleGroupId,
+    setIsModalOpen,
+    setSelectedMuscleGroup,
+    setMuscleGroupID,
+  }
 ) => {
   console.log("Editing musclegroup with ID:", muscleGroupId);
   try {
@@ -115,10 +124,7 @@ export const handleEditExerciseFormSubmit = async (
 };
 
 // In helper.js
-export const handleDeleteExercise = async (
-  exerciseID,
-  { deleteExerciseFromMuscleGroup, deleteExercises, loadExercises }
-) => {
+export const handleDeleteExercise = async (exerciseID, { loadExercises }) => {
   try {
     await deleteExerciseFromMuscleGroup(exerciseID);
     await deleteExercises(exerciseID);
