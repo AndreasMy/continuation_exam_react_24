@@ -11,6 +11,8 @@
 
   background-color: rgba(4, 14, 32, 0.471);
   backdrop-filter: blur(8px);
+
+  padding: 5% 0;
 }
 
 .modal-overlay.open {
@@ -20,32 +22,28 @@
 .modal-container {
   display: flex;
   flex-direction: column;
-
-  min-height: 140px;
-  min-width: 300px;
-  padding: 15px;
+  min-width: 55%; 
+  padding: 2%;
   background-color: var(--primary-color);
-
   border-radius: 8px;
 }
 
 .modal-content {
   display: flex;
-  
+  justify-content: center;
+  height: 90%;
+  overflow-x: scroll;
 }
 
 .exercise-list-ul {
   display: flex;
   flex-direction: column;
   min-height: 40%;
-
+  width: 100%;
 }
 
 ul {
   display: flex;
-
-  
-
 }
 
 .modal-close-button {

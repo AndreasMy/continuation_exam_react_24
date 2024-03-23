@@ -12,23 +12,20 @@ export const MuscleGroupForms = ({
 }) => {
   const { setupEditMuscleGroupModal } = useModal();
 
-  
   return (
-    <Wrapper className={"muscle-group-section"}>
-      <ul className="muscle-group-list">
-        <InteractiveListItem
-          onSelect={() => handleSelectMuscleGroupItem(group)}
-          onEdit={() => setupEditMuscleGroupModal(group._id)}
-          onDelete={() =>
-            handleDeleteMuscleGroup(group._id, {
-              loadMuscleGroups,
-              loadExercises,
-            })
-          }
-        >
-          {group.navn}
-        </InteractiveListItem>
-      </ul>
-    </Wrapper>
+    <ul className="muscle-group-list">
+      <InteractiveListItem
+        onSelect={() => handleSelectMuscleGroupItem(group)}
+        onEdit={() => setupEditMuscleGroupModal(group._id)}
+        onDelete={() =>
+          handleDeleteMuscleGroup(group._id, {
+            loadMuscleGroups,
+            loadExercises,
+          })
+        }
+      >
+        {group.navn}
+      </InteractiveListItem>
+    </ul>
   );
 };

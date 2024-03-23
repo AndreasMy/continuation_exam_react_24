@@ -34,10 +34,10 @@ export const WorkoutPage = () => {
               Open Exercises From Global Scope
             </Button>
             
-            <ExerciseList
+{/*             <ExerciseList
               exercisesList={exercisesList}
               loadExercises={loadExercises}
-            />
+            /> */}
           </div>
         </div>
       </Wrapper>

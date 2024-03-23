@@ -6,6 +6,8 @@ import { submitForm } from "../../helpers/formHelpers";
 import { populateMuscleGroupArray } from "../../API/apiUtilities";
 import { useWorkout } from "../../context/workoutContext";
 
+import './exerciseForms.styles.css'
+
 export const ExerciseForms = ({
   selectedMuscleGroup,
   musclegroupSelected,

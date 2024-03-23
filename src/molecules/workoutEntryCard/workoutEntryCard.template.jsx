@@ -61,30 +61,31 @@ export const WorkoutEntryCard = ({}) => {
   return (
     <Wrapper className="workout-card-large">
       {musclegroups.map((group) => (
-        <div key={group._id}>
+        <div key={group._id} className="workout-card-category-item">
           <MuscleGroupForms
             loadMuscleGroups={loadMuscleGroups}
             loadExercises={loadExercises}
             group={group}
             handleSelectMuscleGroupItem={handleSelectMuscleGroupItem}
           />
-          <Button
-            onClick={() =>
-              openModal(
-                <ExerciseForms
-                  musclegroupSelected={musclegroupSelected}
-                  musclegroupID={musclegroupID}
-                  loadExercises={loadExercises}
-                />
-              )
-            }
-          >
-            Add Exercise
-          </Button>
           <ExerciseList
             exercisesList={filterExercisesByMuscleGroup(group._id)}
             handleDeleteExercise={handleDeleteExercise}
           />
+          <Button
+            onClick={() =>
+              openModal(
+                <ExerciseForms
+                musclegroupSelected={musclegroupSelected}
+                musclegroupID={musclegroupID}
+                loadExercises={loadExercises}
+                />
+                )
+              }
+          >
+            Add Exercise
+          </Button>
+              <div className="line"></div>
         </div>
       ))}
       {isClicked ? (
