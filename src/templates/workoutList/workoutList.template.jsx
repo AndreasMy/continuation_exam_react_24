@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { InteractiveListItem } from "../../molecules/InteractiveListItem/InteractiveListItem.molecule";
 import { deleteExercises } from "../../API/apiUtilities";
-import { Modal } from "../../components/modal/modal.component";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { deleteExerciseFromMuscleGroup } from "../../API/apiUtilities";
@@ -11,10 +9,7 @@ import { useModal } from "../../context/modalContext";
 import { makeAPIRequest } from "../../API/apiServices";
 
 export const ExerciseList = ({ exercisesList, loadExercises }) => {
-  const [currentExercise, setCurrentExercise] = useState({});
-  const [currentExerciseId, setCurrentExerciseId] = useState(null);
-
-  const { openModal, closeModal, setMuscleGroupID, musclegroupID } = useModal();
+  const { openModal, closeModal,} = useModal();
 
   const handleDelete = async (exerciseID) => {
     try {
@@ -27,7 +22,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
   };
 
   const handleEdit = async (exerciseID) => {
-    console.log(exerciseID); //logs the id
+    console.log(exerciseID);
     try {
       const selectedExercise = await makeAPIRequest("ovelser", {
         method: "GET",
@@ -41,9 +36,6 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
           defaultValues={selectedExercise}
         />
       );
-
-      setCurrentExerciseId(exerciseID);
-      console.log("current exercise", currentExercise, exerciseID);
     } catch (error) {
       console.error("Error fetching exercise details", error);
     }
@@ -96,15 +88,6 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
             {/* <p>Dato: {exercise.date}</p> */}
           </InteractiveListItem>
         ))}
-        {/*         {isModalOpen && (
-          <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-            <Forms
-              formConfig={workoutForms.exerciseForms[0]}
-              onSubmit={handleEditFormSubmit}
-              defaultValues={currentExercise}
-            />
-          </Modal>
-        )} */}
       </ul>
     </Wrapper>
   );

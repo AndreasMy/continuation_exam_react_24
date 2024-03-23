@@ -1,4 +1,6 @@
-import "./workoutCard.styles.css";
+import './workoutCard.styles.css'
+
+import * as React from "react";
 import { useFetchList } from "../../API/useFetchList";
 import { MuscleGroupSection } from "../../templates/musclegroupForms/musclegroupForms.template";
 import { ExerciseList } from "../../templates/workoutList/workoutList.template";
@@ -17,7 +19,6 @@ export const WorkoutCard = () => {
   const { openModal, setMuscleGroupID, musclegroupID } = useModal();
 
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
-  /* const [musclegroupID, setMuscleGroupID] = useState(""); */
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
 

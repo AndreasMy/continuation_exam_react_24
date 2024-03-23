@@ -1,24 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { InteractiveListItem } from "../../molecules/InteractiveListItem/InteractiveListItem.molecule";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
-import { Modal } from "../../components/modal/modal.component";
 import { makeAPIRequest } from "../../API/apiServices";
 import { deleteMuscleGroupAndExercises } from "../../API/apiUtilities";
 import { useModal } from "../../context/modalContext";
 
 export const MuscleGroupSection = ({
-  setSelectedMuscleGroup,
-  setMuscleGroupSelected,
   group,
   loadMuscleGroups,
   loadExercises,
 }) => {
-  const { musclegroupID, setMuscleGroupID, openModal, closeModal } = useModal();
-
-  const [currentMuscleGroup, setCurrentMuscleGroup] = useState({});
+  const { openModal, closeModal } = useModal();
 
   const handleDelete = async (id) => {
     try {
@@ -77,12 +71,6 @@ export const MuscleGroupSection = ({
     }
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    loadMuscleGroups();
-    setMuscleGroupID(null);
-  };
-
   return (
     <Wrapper className={"muscle-group-section"}>
       <ul>
@@ -93,16 +81,6 @@ export const MuscleGroupSection = ({
         >
           {group.navn}
         </InteractiveListItem>
-
-        {/*         {isModalOpen && (
-          <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-            <Forms
-              formConfig={workoutForms.musclegroupForms[0]}
-              onSubmit={handleEditFormSubmit}
-              defaultValues={currentMuscleGroup}
-            />
-          </Modal>
-        )} */}
       </ul>
     </Wrapper>
   );

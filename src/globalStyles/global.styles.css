@@ -25,6 +25,26 @@ li,
   color: var(--text-color);
 }
 
+.section-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 35px;
+  border-radius: 10px;
+  background-color: #26252E;
+}
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  
+  margin-top: 5px;
+  min-width: 100%;
+  min-height: 30vh;
+  border-radius: 10px;
+}
 
 .home-welcome-wrapper,
 .home-stat-wrapper {
