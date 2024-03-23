@@ -7,14 +7,14 @@ import { Modal } from "../../components/modal/modal.component";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { deleteExerciseFromMuscleGroup } from "../../API/apiUtilities";
-
+import { useModal } from "../../context/modalContext";
 import { makeAPIRequest } from "../../API/apiServices";
-import { format, set } from "date-fns";
 
 export const ExerciseList = ({ exercisesList, loadExercises }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentExercise, setCurrentExercise] = useState({});
   const [currentExerciseId, setCurrentExerciseId] = useState(null);
+
+  const { openModal, closeModal, setMuscleGroupID, musclegroupID } = useModal();
 
   const handleDelete = async (exerciseID) => {
     try {
@@ -27,39 +27,54 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
   };
 
   const handleEdit = async (exerciseID) => {
+    console.log(exerciseID); //logs the id
     try {
       const selectedExercise = await makeAPIRequest("ovelser", {
         method: "GET",
         id: exerciseID,
       });
+      console.log(selectedExercise);
+      openModal(
+        <Forms
+          formConfig={workoutForms.exerciseForms[0]}
+          onSubmit={(formData) => handleEditFormSubmit(formData, exerciseID)}
+          defaultValues={selectedExercise}
+        />
+      );
+
       setCurrentExerciseId(exerciseID);
-      setCurrentExercise(selectedExercise);
-      setIsModalOpen(true);
+      console.log("current exercise", currentExercise, exerciseID);
     } catch (error) {
       console.error("Error fetching exercise details", error);
     }
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setCurrentExerciseId(null);
-    setCurrentExercise({});
-  };
-
-  const handleEditFormSubmit = async (formData) => {
+  const handleEditFormSubmit = async (formData, exerciseId) => {
+    console.log(exerciseId);
     try {
-      if (!currentExerciseId) {
+      if (!exerciseId) {
         console.error("No exercise ID is set for editing.");
         return;
       }
+
+      const currentExercise = await makeAPIRequest("ovelser", {
+        method: "GET",
+        id: exerciseId,
+      });
+
+      const updatedFormData = {
+        ...formData,
+        muskelgruppe: currentExercise.muskelgruppe, 
+      };
+      console.log("updatedFormData: ", updatedFormData);
+
       await makeAPIRequest("ovelser", {
         method: "PUT",
-        obj: formData,
-        id: currentExerciseId,
+        obj: updatedFormData,
+        id: exerciseId,
       });
       loadExercises();
-      setIsModalOpen(false);
-      setCurrentExerciseId(null);
+      closeModal(); 
     } catch (error) {
       console.error("Error submitting edited form", error);
     }
@@ -67,7 +82,6 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
 
   return (
     <Wrapper className={"exercise-list"}>
-      <h2>List of registered workouts...</h2>
       <ul>
         {exercisesList.map((exercise) => (
           <InteractiveListItem
@@ -82,7 +96,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
             {/* <p>Dato: {exercise.date}</p> */}
           </InteractiveListItem>
         ))}
-        {isModalOpen && (
+        {/*         {isModalOpen && (
           <Modal isOpen={isModalOpen} onClose={handleModalClose}>
             <Forms
               formConfig={workoutForms.exerciseForms[0]}
@@ -90,7 +104,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
               defaultValues={currentExercise}
             />
           </Modal>
-        )}
+        )} */}
       </ul>
     </Wrapper>
   );

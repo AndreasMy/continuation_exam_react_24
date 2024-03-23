@@ -4,6 +4,7 @@ import { Button } from "../../components/button/button.component";
 export const InteractiveListItem = ({ children, onDelete, onEdit, onSelect }) => {
   return (
     <li onClick={onSelect} className="list-item">
+       <div className="list-item-content">
       {children}
       <div className="list-item-btn-container">
         <Button className="list-btn delete-btn" onClick={onDelete}>
@@ -12,6 +13,7 @@ export const InteractiveListItem = ({ children, onDelete, onEdit, onSelect }) =>
         <Button className="list-btn edit-btn" onClick={onEdit}>
           Edit
         </Button>
+       </div>
       </div>
     </li>
   );

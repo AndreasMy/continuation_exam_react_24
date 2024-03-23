@@ -8,11 +8,12 @@ import { Button } from "../../components/button/button.component";
 
 import { MuscleGroupSection } from "../../templates/musclegroupForms/musclegroupForms.template";
 import { ExerciseSection } from "../../templates/exerciseForms/exerciseForms.template";
-
+import { useModal } from "../../context/modalContext";
 
 export const WorkoutEntry = () => {
+  const { openModal, setMuscleGroupID, musclegroupID } = useModal();
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
-  const [musclegroupID, setMuscleGroupID] = useState("");
+/*   const [musclegroupID, setMuscleGroupID] = useState(""); */
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
 
   const { list: musclegroups, loadList: loadMuscleGroups } =
@@ -25,15 +26,7 @@ export const WorkoutEntry = () => {
     loadExercises();
   }, [loadMuscleGroups, loadExercises]);
 
-  const [startDate, setDate] = React.useState(new Date());
-  const defaultEndDate = new Date();
-  defaultEndDate.setDate(defaultEndDate.getDate() + 7);
-  // const today = new Date();
 
-  const selectDateHandler = (date) => {
-    setDate(date);
-  };
-  // Manage state here
   return (
     <>
       <Wrapper className="workout-entry-wrapper">

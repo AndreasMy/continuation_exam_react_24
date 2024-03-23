@@ -3,15 +3,17 @@ import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { submitForm } from "../../helpers/formHelpers";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
+import { useModal } from "../../context/modalContext";
 
 import { populateMuscleGroupArray } from "../../API/apiUtilities";
 
 export const ExerciseSection = ({
   musclegroupID,
   musclegroupSelected,
-  selectedMuscleGroup,
   loadExercises,
 }) => {
+  const { closeModal } = useModal();
+
   const handleFormSubmit = async (FormData) => {
     if (musclegroupSelected) {
       await submitForm(
@@ -22,6 +24,7 @@ export const ExerciseSection = ({
         async (response) => {
           await populateMuscleGroupArray(response._id, musclegroupID);
           await loadExercises();
+          await closeModal();
         }
       );
     }
@@ -30,7 +33,6 @@ export const ExerciseSection = ({
   return (
     <Wrapper className={"exercise-section"}>
       <h2>Add Exercise</h2>
-      <h3>Muscle group: {selectedMuscleGroup}</h3>
       <Forms
         onSubmit={handleFormSubmit}
         formConfig={workoutForms.exerciseForms[0]}

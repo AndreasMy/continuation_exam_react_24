@@ -5,9 +5,11 @@ const ModalContext = createContext();
 export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [muscleGroupID, setMuscleGroupID] = useState(null);
 
-  const openModal = (content) => {
+  const openModal = (content, mgID = null) => {
     setModalContent(content);
+    setMuscleGroupID(mgID);
     setIsModalOpen(true);
   };
 
@@ -18,7 +20,13 @@ export const ModalProvider = ({ children }) => {
 
   return (
     <ModalContext.Provider
-      value={{ isModalOpen, modalContent, openModal, closeModal }}
+      value={{
+        isModalOpen,
+        modalContent,
+        openModal,
+        closeModal,
+        muscleGroupID,
+      }}
     >
       {children}
     </ModalContext.Provider>
