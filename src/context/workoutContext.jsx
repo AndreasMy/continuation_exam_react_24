@@ -19,6 +19,7 @@ export const WorkoutProvider = ({ children }) => {
 
   const [currentExercise, setCurrentExercise] = useState({});
   const [currentExerciseId, setCurrentExerciseId] = useState(null);
+  console.log(currentExerciseId)
   return (
     <WorkoutContext.Provider
       value={{

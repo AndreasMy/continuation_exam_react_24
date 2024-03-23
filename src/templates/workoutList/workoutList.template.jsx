@@ -11,17 +11,13 @@ export const ExerciseList = ({
 }) => {
   const { setupEditExerciseModal } = useModal();
 
-  const handleEditButtonClick = (exerciseId) => {
-    setupEditExerciseModal(exerciseId);
-  };
-
   return (
     <ul className="exercise-list-ul">
       {exercisesList.map((exercise) => (
         <InteractiveListItem
           key={exercise._id}
           onDelete={() => handleDeleteExercise(exercise._id, { loadExercises })}
-          onEdit={() => handleEditButtonClick(exercise._id)}
+          onEdit={() => setupEditExerciseModal(exercise._id, { loadExercises })}
         >
           <p>{exercise.name}</p>
           <p>Wheight: {exercise.weight}</p>

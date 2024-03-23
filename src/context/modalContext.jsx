@@ -13,16 +13,17 @@ export const ModalProvider = ({ children }) => {
   const [modalContent, setModalContent] = useState(null);
   const [editingMuscleGroup, setEditingMuscleGroup] = useState(null);
   const [editingExercise, setEditingExercise] = useState(null);
-  const [addingExercise, setAddingExercise] = useState(null);
 
   const {
     setSelectedMuscleGroup,
     musclegroupID,
     setMuscleGroupID,
     loadMuscleGroups,
+    currentExerciseId,
+    setCurrentExerciseId,
   } = useWorkout();
 
-  console.log(musclegroupID);
+  console.log(currentExerciseId); // is logged
 
   const openModal = (content) => {
     setModalContent(content);
@@ -30,17 +31,23 @@ export const ModalProvider = ({ children }) => {
   };
 
   const setupEditExerciseModal = async (exerciseId) => {
+    console.log("ExerciseId: ", exerciseId); // is logged
     try {
       const selectedExercise = await makeAPIRequest("ovelser", {
         method: "GET",
         id: exerciseId,
       });
+      setCurrentExerciseId(exerciseId);
+      console.log(currentExerciseId) // null
       setEditingExercise(selectedExercise);
       openModal(
         <Forms
           formConfig={workoutForms.exerciseForms[0]}
           onSubmit={(formData) =>
-            handleEditExerciseFormSubmit(formData, exerciseId)
+            handleEditExerciseFormSubmit(formData, {
+              currentExerciseId: exerciseId,
+              setCurrentExerciseId,
+            })
           }
           defaultValues={selectedExercise}
         />
@@ -93,11 +100,6 @@ export const ModalProvider = ({ children }) => {
     );
   };
 
-  /*   const openMoadlForAddingExercise = (exercise) => {
-    setAddingExercise(exercise);
-    setIsModalOpen(true);
-  }; */
-
   const closeModal = () => {
     setIsModalOpen(false);
     setModalContent(null);
@@ -118,7 +120,6 @@ export const ModalProvider = ({ children }) => {
         editingMuscleGroup,
         editingExercise,
         // openMoadlForAddingExercise,
-        addingExercise,
       }}
     >
       {children}

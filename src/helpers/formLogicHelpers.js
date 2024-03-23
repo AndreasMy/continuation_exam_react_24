@@ -8,11 +8,6 @@ import {
   deleteMuscleGroupAndExercises,
 } from "../API/apiUtilities";
 
-/* const { list: musclegroups, loadList: loadMuscleGroups } =
-  useFetchList("muskelgrupper");
-const { list: exercisesList, loadList: loadExercises } =
-  useFetchList("ovelser"); */
-
 //* MuscleGroups
 export const handleMuscleGroupFormSubmit = async (
   FormData,
@@ -103,8 +98,9 @@ export const handleExerciseFormSubmit = async (
 
 export const handleEditExerciseFormSubmit = async (
   formData,
-  { currentExerciseId, setCurrentExerciseId }
+  { currentExerciseId, setCurrentExerciseId, loadExercises }
 ) => {
+  console.log(currentExerciseId); // undefined
   try {
     if (!currentExerciseId) {
       console.error("No exercise ID is set for editing.");

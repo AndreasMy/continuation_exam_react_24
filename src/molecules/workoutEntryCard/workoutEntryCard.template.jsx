@@ -25,11 +25,11 @@ export const WorkoutEntryCard = ({}) => {
     loadExercises,
     musclegroupSelected,
   } = useWorkout();
-  console.log(exercisesList);
+
+
   const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
-    console.log("Fetched exercises:", exercisesList);
     loadMuscleGroups();
     loadExercises();
   }, [loadMuscleGroups, loadExercises]);
