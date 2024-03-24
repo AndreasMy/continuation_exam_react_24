@@ -15,7 +15,7 @@ import { useModal } from "../../context/modalContext";
 
 import { useState, useEffect } from "react";
 
-export const WorkoutCard = () => {
+export const WorkoutCard = ({selectedDate}) => {
   const { openModal, setMuscleGroupID, musclegroupID } = useModal();
 
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
@@ -91,6 +91,7 @@ export const WorkoutCard = () => {
                   musclegroupSelected={true}
                   musclegroupID={group._id}
                   loadExercises={loadExercises}
+                  selectedDate={selectedDate}
                 />
               )
             }

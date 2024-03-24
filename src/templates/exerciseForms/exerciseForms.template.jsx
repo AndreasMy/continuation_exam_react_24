@@ -11,16 +11,16 @@ export const ExerciseSection = ({
   musclegroupID,
   musclegroupSelected,
   loadExercises,
+  selectedDate,
 }) => {
   const { closeModal } = useModal();
-
   const handleFormSubmit = async (FormData) => {
     if (musclegroupSelected) {
       await submitForm(
         FormData,
         workoutForms.exerciseForms[0],
         "ovelser",
-        { muskelgruppe: musclegroupID },
+        { muskelgruppe: musclegroupID, date: selectedDate }, 
         async (response) => {
           await populateMuscleGroupArray(response._id, musclegroupID);
           await loadExercises();

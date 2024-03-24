@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { getCurrentDate } from "../../helpers/formHelpers";
 
 export const Forms = ({ formConfig, onSubmit, defaultValues = {} }) => {
   const initialFormData = formConfig.fields.reduce((acc, field) => {

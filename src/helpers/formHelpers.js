@@ -22,7 +22,7 @@ export const submitForm = async (
   formConfig,
   formData,
   endpoint,
-  additionalData = {},
+  additionalData = {}, // should this be changed to [{additionalData}] ?
   postSubmitAction
 ) => {
   try {

@@ -12,6 +12,8 @@ export const makeAPIRequest = async (
 
   if (obj && (method === "POST" || method === "PUT")) {
     options.headers["Content-Type"] = "application/json";
+    console.log("Sending data to API:", obj);
+
     options.body = JSON.stringify(obj);
   }
 
@@ -33,27 +35,3 @@ export const makeAPIRequest = async (
     throw error;
   }
 };
-
-/* const handleResponse = async (response) => {
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Network response was not ok: ${errorText}`);
-  }
-
-  const contentType = response.headers.get("content-type");
-  if (contentType && contentType.indexOf("application/json") !== -1) {
-    return await response.json();
-  } else {
-    return null;
-  }
-};
-
-const fetchData = async (url, options = {}) => {
-  try {
-    const response = await fetch(url, options);
-    return await handleResponse(response);
-  } catch (error) {
-    console.error("API call failed:", url, options, error);
-    throw error;
-  }
-}; */

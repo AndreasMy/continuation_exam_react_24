@@ -54,9 +54,12 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
         id: exerciseId,
       });
 
+      console.log("currentExercise: ", currentExercise);
+
       const updatedFormData = {
         ...formData,
         muskelgruppe: currentExercise.muskelgruppe, 
+        date: currentExercise.date,
       };
       console.log("updatedFormData: ", updatedFormData);
 
@@ -85,7 +88,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
             <p>Wheight: {exercise.weight}</p>
             <p>Repetitions: {exercise.repetitions}</p>
             <p>Sets: {exercise.sets}</p>
-            {/* <p>Dato: {exercise.date}</p> */}
+            <p>Dato: {exercise.date}</p>
           </InteractiveListItem>
         ))}
       </ul>

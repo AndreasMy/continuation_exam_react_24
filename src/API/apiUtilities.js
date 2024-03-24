@@ -54,7 +54,7 @@ export const deleteExerciseFromMuscleGroup = async (exerciseID) => {
       method: "GET",
       id: exerciseID,
     });
-    
+
     if (!exercise || !exercise.muskelgruppe) {
       console.error("Exercise or associated musclegroup not found");
       return;
@@ -70,13 +70,14 @@ export const deleteExerciseFromMuscleGroup = async (exerciseID) => {
       console.error("Muscle group or its exercises array not found");
       return;
     }
-    const muscleGroupName = muscleGroup.name;
+    console.log("From delete MG function: ",muscleGroup);
+    const navn = muscleGroup.navn;
     const updatedOvelser = muscleGroup.ovelser.filter(
       (id) => id !== exerciseID
     );
 
     const updatedMuscleGroup = {
-      muscleGroupName,
+      navn,
       ovelser: updatedOvelser,
     };
 

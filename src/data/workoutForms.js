@@ -31,7 +31,7 @@ export const workoutForms = {
           placeholder: "Sets",
           required: true,
         },
-/*         {
+        /*         {
           id: "date",
           type: "date",
           label: "Date",
@@ -60,6 +60,25 @@ export const workoutForms = {
       ],
       submitButton: {
         label: "Submit",
+        type: "submit",
+      },
+    },
+  ],
+  workoutForm: [
+    {
+      id: "workoutForm",
+      fields: [
+        {
+          id: "date",
+          type: "date",
+          label: "Date",
+          placeholder: "YYYY-MM-DD",
+          required: true,
+          autoFocus: true,
+        },
+      ],
+      submitButton: {
+        label: "New Workout",
         type: "submit",
       },
     },
