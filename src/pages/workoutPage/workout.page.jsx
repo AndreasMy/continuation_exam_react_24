@@ -40,6 +40,8 @@ export const WorkoutPage = () => {
   const handleSelectDate = (formData) => {
     const dateFromForm = formData["date"];
     setSelectedDate(dateFromForm);
+
+    
     setIsAddingWorkout(true);
   };
 
@@ -54,6 +56,7 @@ export const WorkoutPage = () => {
               <WorkoutCard
                 selectedDate={selectedDate}
                 setIsAddingWorkout={setIsAddingWorkout}
+                setStoredExerciseGroup={setStoredExerciseGroup}
               />
             ) : (
               <Wrapper className="entry-wrapper">

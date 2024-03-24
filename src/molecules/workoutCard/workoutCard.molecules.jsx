@@ -7,7 +7,7 @@ import { ExerciseList } from "../../templates/workoutList/workoutList.template";
 import { ExerciseSection } from "../../templates/exerciseForms/exerciseForms.template";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Button } from "../../components/button/button.component";
-
+import { groupExercisesByDate } from "../../helpers/dateHelpers";
 import { submitForm } from "../../helpers/formHelpers";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
@@ -17,7 +17,11 @@ import { sortExercisesByDate } from "../../helpers/dateHelpers";
 
 import { useState, useEffect } from "react";
 
-export const WorkoutCard = ({ selectedDate, setIsAddingWorkout }) => {
+export const WorkoutCard = ({
+  selectedDate,
+  setIsAddingWorkout,
+  setStoredExerciseGroup,
+}) => {
   const { openModal, setMuscleGroupID, musclegroupID } = useModal();
 
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
@@ -34,8 +38,10 @@ export const WorkoutCard = ({ selectedDate, setIsAddingWorkout }) => {
     loadExercises();
   }, [loadMuscleGroups, loadExercises]);
 
-  const handleCloseWorkoutCard = () => {
-    sortExercisesByDate(exercisesList);
+  const handleCloseWorkoutCard = async () => {
+    await loadExercises();
+    const updatedList = groupExercisesByDate(exercisesList);
+    setStoredExerciseGroup(updatedList)
     setIsAddingWorkout(false);
   };
 
