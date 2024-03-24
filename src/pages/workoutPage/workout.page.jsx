@@ -6,7 +6,6 @@ import { WorkoutCard } from "../../molecules/workoutCard/workoutCard.molecules";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { useFetchList } from "../../API/useFetchList";
-import { Button } from "../../components/button/button.component";
 
 import { groupExercisesByDate } from "../../helpers/dateHelpers";
 
@@ -22,27 +21,24 @@ export const WorkoutPage = () => {
 
   useEffect(() => {
     loadExercises();
-  }, [loadExercises]); // Ensures loadExercises is called once on mount.
+  }, [loadExercises]);
 
   useEffect(() => {
-    // This useEffect now correctly waits for exercisesList to be updated by the first useEffect.
     const groupedExercises = groupExercisesByDate(exercisesList);
     setStoredExerciseGroup(groupedExercises);
   }, [exercisesList]);
 
-  console.log(storedExerciseGroup); // empty object
-
-  const logGroupedItems = () => {
-    const groupedExercises = groupExercisesByDate(exercisesList);
-    console.log(groupedExercises);
-  };
-
   const handleSelectDate = (formData) => {
     const dateFromForm = formData["date"];
     setSelectedDate(dateFromForm);
-
-    
     setIsAddingWorkout(true);
+  };
+
+  const handleClickEntryCard = (session) => {
+    setSelectedDate(session.date);
+    console.log(session.date);
+    setIsAddingWorkout(true)
+
   };
 
   return (
@@ -64,7 +60,11 @@ export const WorkoutPage = () => {
                   <Wrapper className="session-cards-wrapper">
                     {Array.isArray(storedExerciseGroup) &&
                       storedExerciseGroup.map((session) => (
-                        <div key={session.date} className="session-card">
+                        <div
+                          key={session.date}
+                          className="session-card"
+                          onClick={() => handleClickEntryCard(session)}
+                        >
                           <h4>{session.date}</h4>
                           <ul>
                             {session.exercises.map((exercise) => (
@@ -79,7 +79,6 @@ export const WorkoutPage = () => {
                         </div>
                       ))}
                   </Wrapper>
-
                   <Forms
                     onSubmit={handleSelectDate}
                     formConfig={workoutForms.workoutForm[0]}
@@ -88,7 +87,6 @@ export const WorkoutPage = () => {
               </Wrapper>
             )}
           </div>
-          <Button onClick={logGroupedItems}>Test Function</Button>
         </div>
       </Wrapper>
     </>

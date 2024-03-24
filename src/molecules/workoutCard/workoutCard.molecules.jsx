@@ -41,7 +41,7 @@ export const WorkoutCard = ({
   const handleCloseWorkoutCard = async () => {
     await loadExercises();
     const updatedList = groupExercisesByDate(exercisesList);
-    setStoredExerciseGroup(updatedList)
+    setStoredExerciseGroup(updatedList);
     setIsAddingWorkout(false);
   };
 
@@ -68,7 +68,9 @@ export const WorkoutCard = ({
 
   const filterExercisesByMuscleGroup = (musclegroupID) => {
     const filteredExercises = exercisesList.filter(
-      (exercise) => exercise.muskelgruppe === musclegroupID
+      (exercise) =>
+        exercise.muskelgruppe === musclegroupID &&
+        exercise.date === selectedDate
     );
     return filteredExercises;
   };

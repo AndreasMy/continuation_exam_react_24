@@ -126,6 +126,7 @@ label {
   padding: 28px;
   background-color: rgb(74, 80, 74);
   border-radius: 8px;
+  cursor: pointer;
 }
 
 
