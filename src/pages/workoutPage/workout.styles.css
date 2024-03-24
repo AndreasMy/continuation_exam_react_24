@@ -72,7 +72,6 @@ label {
   border-radius: 5px;
   font-size: 1.2rem;
   min-width: 95%;
-
 }
 
 .list-item-btn-container {
@@ -100,6 +99,36 @@ label {
 
 .edit-btn {
   background-color: rgb(39, 62, 76);
-
+  padding: 9px;
   color: antiquewhite;
+}
+
+
+.entry-wrapper,
+.entry-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Workout session cards styles */
+
+.session-cards-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 90%;
+}
+
+.session-card {
+  margin: 2%;
+  padding: 28px;
+  background-color: rgb(74, 80, 74);
+  border-radius: 8px;
+}
+
+
+.session-card li {
+  list-style: none;
 }

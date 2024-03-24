@@ -1,4 +1,4 @@
-import './workoutCard.styles.css'
+import "./workoutCard.styles.css";
 
 import * as React from "react";
 import { useFetchList } from "../../API/useFetchList";
@@ -13,9 +13,11 @@ import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { useModal } from "../../context/modalContext";
 
+import { sortExercisesByDate } from "../../helpers/dateHelpers";
+
 import { useState, useEffect } from "react";
 
-export const WorkoutCard = ({selectedDate}) => {
+export const WorkoutCard = ({ selectedDate, setIsAddingWorkout }) => {
   const { openModal, setMuscleGroupID, musclegroupID } = useModal();
 
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
@@ -31,6 +33,11 @@ export const WorkoutCard = ({selectedDate}) => {
     loadMuscleGroups();
     loadExercises();
   }, [loadMuscleGroups, loadExercises]);
+
+  const handleCloseWorkoutCard = () => {
+    sortExercisesByDate(exercisesList);
+    setIsAddingWorkout(false);
+  };
 
   const handleMuscleGroupFormSubmit = async (FormData) => {
     await submitForm(
@@ -111,6 +118,7 @@ export const WorkoutCard = ({selectedDate}) => {
           Add a muscle group..
         </Button>
       )}
+      <Button onClick={handleCloseWorkoutCard}>Done</Button>
     </Wrapper>
   );
 };
