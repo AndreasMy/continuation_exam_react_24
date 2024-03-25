@@ -8,25 +8,40 @@ import {
   getDaysInMonth,
   addDays,
   subDays,
-  getDate, 
-  isSameDay
+  getDate,
+  isSameDay,
+  format,
 } from "date-fns";
 
 import { calendarData } from "../../data/calendarData";
 import { Wrapper } from "../wrapper/wrapper.component";
 
-export const Calendar = () => {
+export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
   const now = new Date();
   const [currentDate, setCurrentDate] = useState(now);
   const [calendarDays, setCalendarDays] = useState([]);
 
   // Constants for current year and month
   const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
 
   useEffect(() => {
     generateCalendarDays();
   }, [currentDate]);
+
+  const onDaySelect = (day) => {
+    if (onDateSelect && day.actualMonth === "current") {
+      const fullDate = new Date(year, month, day.date);
+      const formattedDate = format(fullDate, "yyyy-MM-dd");
+      onDateSelect(formattedDate);
+    }
+  };
+
+  const workoutDates = new Set(
+    Array.isArray(storedExerciseGroup)
+      ? storedExerciseGroup.map((session) => session.date)
+      : []
+  );
+  const month = currentDate.getMonth();
 
   const generateCalendarDays = () => {
     const days = [];
@@ -100,11 +115,23 @@ export const Calendar = () => {
           ))}
         </ul>
         <ul className="calendar-dates">
-          {calendarDays.map((day, index) => (
-            <li key={index} className={day.class}>
-              {day.date}
-            </li>
-          ))}
+          {calendarDays.map((day, index) => {
+            const fullDate = format(
+              new Date(year, month, day.date),
+              "yyyy-MM-dd"
+            );
+            const hasWorkout = workoutDates.has(fullDate);
+            return (
+              <li
+                key={index}
+                className={`${day.class} ${hasWorkout ? "has-workout" : ""}`}
+                onClick={() => onDaySelect(day)}
+              >
+                {day.date}
+                {hasWorkout && <span className="workout-indicator">🏋️</span>}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </Wrapper>

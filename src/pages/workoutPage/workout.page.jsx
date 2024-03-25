@@ -8,7 +8,6 @@ import { workoutForms } from "../../data/workoutForms";
 import { useFetchList } from "../../API/useFetchList";
 
 import { Calendar } from "../../components/calendar/calendar.component";
-
 import { groupExercisesByDate } from "../../helpers/dateHelpers";
 
 import "./workout.styles.css";
@@ -30,17 +29,23 @@ export const WorkoutPage = () => {
     setStoredExerciseGroup(groupedExercises);
   }, [exercisesList]);
 
+  //? to be removed?
   const handleSelectDate = (formData) => {
     const dateFromForm = formData["date"];
     setSelectedDate(dateFromForm);
     setIsAddingWorkout(true);
   };
 
+  //* For calendar component
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+    setIsAddingWorkout(true);
+  };
+
   const handleClickEntryCard = (session) => {
     setSelectedDate(session.date);
     console.log(session.date);
-    setIsAddingWorkout(true)
-
+    setIsAddingWorkout(true);
   };
 
   return (
@@ -49,8 +54,12 @@ export const WorkoutPage = () => {
         <div className="section-wrapper home-welcome-wrapper">
           <div className="section-banner welcome-banner"></div>
           <div className="section-container">
-            <Calendar />
             <h1>Add Workout</h1>
+            <Calendar
+              selectedDate={selectedDate}
+              onDateSelect={handleDateSelect}
+              storedExerciseGroup={storedExerciseGroup} 
+            />
             {isAddingWorkout ? (
               <WorkoutCard
                 selectedDate={selectedDate}
