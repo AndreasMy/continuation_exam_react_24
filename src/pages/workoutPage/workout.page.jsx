@@ -7,6 +7,8 @@ import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { useFetchList } from "../../API/useFetchList";
 
+import { Calendar } from "../../components/calendar/calendar.component";
+
 import { groupExercisesByDate } from "../../helpers/dateHelpers";
 
 import "./workout.styles.css";
@@ -47,6 +49,7 @@ export const WorkoutPage = () => {
         <div className="section-wrapper home-welcome-wrapper">
           <div className="section-banner welcome-banner"></div>
           <div className="section-container">
+            <Calendar />
             <h1>Add Workout</h1>
             {isAddingWorkout ? (
               <WorkoutCard
