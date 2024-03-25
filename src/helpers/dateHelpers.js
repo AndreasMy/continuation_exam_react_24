@@ -1,4 +1,4 @@
-export const sortExercisesByDate = (exercises) => {
+/* export const sortExercisesByDate = (exercises) => {
   if (!exercises.length) {
     console.log("No exercises to sort.");
     return [];
@@ -12,13 +12,13 @@ export const sortExercisesByDate = (exercises) => {
 
   console.log("Sorted exercises:", sortedExercises);
   return sortedExercises;
-};
+}; */
 
 export const groupExercisesByDate = (exercises) => {
   if (!exercises.length) {
     return {};
   }
-  console.log("Exercises to reduce: ", exercises);
+
   const groupedByDate = exercises.reduce((acc, exercise) => {
     const date = exercise.date;
     if (!acc[date]) {
@@ -33,7 +33,5 @@ export const groupExercisesByDate = (exercises) => {
     exercises: groupedByDate[date],
   }));
 
-  console.log("Grouped Exercises: ", groupedByDate);
-  console.log("Improved arrays: ", transformedArray);
   return transformedArray;
 };

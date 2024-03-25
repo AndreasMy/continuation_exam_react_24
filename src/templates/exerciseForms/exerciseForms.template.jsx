@@ -7,14 +7,15 @@ import { useModal } from "../../context/modalContext";
 
 import { populateMuscleGroupArray } from "../../API/apiUtilities";
 
-export const ExerciseSection = ({
+export const ExerciseForms = ({ 
   musclegroupID,
   musclegroupSelected,
   loadExercises,
   selectedDate,
 }) => {
   const { closeModal } = useModal();
-  const handleFormSubmit = async (FormData) => {
+
+  const submitExerciseForm = async (FormData) => { 
     if (musclegroupSelected) {
       await submitForm(
         FormData,
@@ -34,7 +35,7 @@ export const ExerciseSection = ({
     <Wrapper className={"exercise-section"}>
       <h2>Add Exercise</h2>
       <Forms
-        onSubmit={handleFormSubmit}
+        onSubmit={submitExerciseForm}
         formConfig={workoutForms.exerciseForms[0]}
       />
     </Wrapper>

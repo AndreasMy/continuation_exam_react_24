@@ -2,9 +2,9 @@ import "./workoutCard.styles.css";
 
 import * as React from "react";
 import { useFetchList } from "../../API/useFetchList";
-import { MuscleGroupSection } from "../../templates/musclegroupForms/musclegroupForms.template";
-import { ExerciseList } from "../../templates/workoutList/workoutList.template";
-import { ExerciseSection } from "../../templates/exerciseForms/exerciseForms.template";
+import { MuscleGroupForms } from "../../templates/musclegroupForms/musclegroupForms.template";
+import { ExerciseList } from "../../templates/workoutList/exerciseList.template";
+import { ExerciseForms } from "../../templates/exerciseForms/exerciseForms.template";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Button } from "../../components/button/button.component";
 import { groupExercisesByDate } from "../../helpers/dateHelpers";
@@ -12,8 +12,6 @@ import { submitForm } from "../../helpers/formHelpers";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { useModal } from "../../context/modalContext";
-
-import { sortExercisesByDate } from "../../helpers/dateHelpers";
 
 import { useState, useEffect } from "react";
 
@@ -56,7 +54,7 @@ export const WorkoutCard = ({
     setIsClicked(false);
   };
 
-  const handleButtonClick = () => {
+  const handleAddMuscleGroupButton = () => {
     setIsClicked(true);
   };
 
@@ -79,9 +77,8 @@ export const WorkoutCard = ({
     <Wrapper className="workout-card-large">
       {musclegroups.map((group) => (
         <div key={group._id} className="workout-card-category-item">
-          <MuscleGroupSection
+          <MuscleGroupForms
             group={group}
-            setMuscleGroupSelected={setMuscleGroupSelected}
             setMuscleGroupID={setMuscleGroupID}
             musclegroupID={musclegroupID}
             setSelectedMuscleGroup={setSelectedMuscleGroup}
@@ -102,7 +99,7 @@ export const WorkoutCard = ({
             className="add-exercise-button"
             onClick={() =>
               openModal(
-                <ExerciseSection
+                <ExerciseForms
                   musclegroupSelected={true}
                   musclegroupID={group._id}
                   loadExercises={loadExercises}
@@ -122,7 +119,7 @@ export const WorkoutCard = ({
           formConfig={workoutForms.musclegroupForms[0]}
         />
       ) : (
-        <Button className="add-btn" onClick={handleButtonClick}>
+        <Button className="add-btn" onClick={handleAddMuscleGroupButton}>
           Add a muscle group..
         </Button>
       )}

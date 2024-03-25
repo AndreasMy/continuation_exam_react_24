@@ -31,13 +31,6 @@ export const workoutForms = {
           placeholder: "Sets",
           required: true,
         },
-        /*         {
-          id: "date",
-          type: "date",
-          label: "Date",
-          placeholder: "YYYY-MM-DD",
-          required: true,
-        }, */
       ],
       submitButton: {
         label: "Submit",

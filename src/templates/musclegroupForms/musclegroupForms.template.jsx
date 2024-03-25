@@ -7,14 +7,14 @@ import { makeAPIRequest } from "../../API/apiServices";
 import { deleteMuscleGroupAndExercises } from "../../API/apiUtilities";
 import { useModal } from "../../context/modalContext";
 
-export const MuscleGroupSection = ({
+export const MuscleGroupForms = ({
   group,
   loadMuscleGroups,
   loadExercises,
 }) => {
   const { openModal, closeModal } = useModal();
 
-  const handleDelete = async (id) => {
+  const handleDeleteMuscleGroup = async (id) => {
     try {
       await deleteMuscleGroupAndExercises(id);
       await loadExercises();
@@ -24,7 +24,7 @@ export const MuscleGroupSection = ({
     }
   };
 
-  const handleEdit = async (musclegroupID) => {
+  const handleEditMuscleGroup = async (musclegroupID) => {
     try {
       const musclegroupObj = await makeAPIRequest("muskelgrupper", {
         method: "GET",
@@ -33,7 +33,7 @@ export const MuscleGroupSection = ({
       openModal(
         <Forms
           formConfig={workoutForms.musclegroupForms[0]}
-          onSubmit={(formData) => handleEditFormSubmit(formData, musclegroupID)}
+          onSubmit={(formData) => submitUpdatedMuscleGroup(formData, musclegroupID)} 
           defaultValues={musclegroupObj}
         />
       );
@@ -42,7 +42,7 @@ export const MuscleGroupSection = ({
     }
   };
 
-  const handleEditFormSubmit = async (formData, musclegroupID) => {
+  const submitUpdatedMuscleGroup = async (formData, musclegroupID) => {
     try {
       if (!musclegroupID) {
         console.error("No musclegroup ID is set for editing");
@@ -75,9 +75,8 @@ export const MuscleGroupSection = ({
     <Wrapper className={"muscle-group-section"}>
       <ul>
         <InteractiveListItem
-          onDelete={() => handleDelete(group._id)}
-          /* onSelect={() => handleSelectItem(group)} // I need to use something */
-          onEdit={() => handleEdit(group._id)}
+          onDelete={() => handleDeleteMuscleGroup(group._id)}
+          onEdit={() => handleEditMuscleGroup(group._id)}
         >
           {group.navn}
         </InteractiveListItem>

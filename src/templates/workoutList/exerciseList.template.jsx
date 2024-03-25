@@ -11,7 +11,7 @@ import { makeAPIRequest } from "../../API/apiServices";
 export const ExerciseList = ({ exercisesList, loadExercises }) => {
   const { openModal, closeModal,} = useModal();
 
-  const handleDelete = async (exerciseID) => {
+  const handleDeleteExercise = async (exerciseID) => {
     try {
       await deleteExerciseFromMuscleGroup(exerciseID);
       await deleteExercises(exerciseID);
@@ -21,7 +21,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
     }
   };
 
-  const handleEdit = async (exerciseID) => {
+  const handleEditExercise = async (exerciseID) => {
     console.log(exerciseID);
     try {
       const selectedExercise = await makeAPIRequest("ovelser", {
@@ -32,7 +32,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
       openModal(
         <Forms
           formConfig={workoutForms.exerciseForms[0]}
-          onSubmit={(formData) => handleEditFormSubmit(formData, exerciseID)}
+          onSubmit={(formData) => submitUpdatedExercise(formData, exerciseID)}
           defaultValues={selectedExercise}
         />
       );
@@ -41,7 +41,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
     }
   };
 
-  const handleEditFormSubmit = async (formData, exerciseId) => {
+  const submitUpdatedExercise = async (formData, exerciseId) => {
     console.log(exerciseId);
     try {
       if (!exerciseId) {
@@ -54,14 +54,11 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
         id: exerciseId,
       });
 
-      console.log("currentExercise: ", currentExercise);
-
       const updatedFormData = {
         ...formData,
         muskelgruppe: currentExercise.muskelgruppe, 
         date: currentExercise.date,
       };
-      console.log("updatedFormData: ", updatedFormData);
 
       await makeAPIRequest("ovelser", {
         method: "PUT",
@@ -81,8 +78,8 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
         {exercisesList.map((exercise) => (
           <InteractiveListItem
             key={exercise._id}
-            onDelete={() => handleDelete(exercise._id)}
-            onEdit={() => handleEdit(exercise._id)}
+            onDelete={() => handleDeleteExercise(exercise._id)}
+            onEdit={() => handleEditExercise(exercise._id)}
           >
             <p>{exercise.name}</p>
             <p>Wheight: {exercise.weight}</p>

@@ -70,7 +70,7 @@ export const deleteExerciseFromMuscleGroup = async (exerciseID) => {
       console.error("Muscle group or its exercises array not found");
       return;
     }
-    console.log("From delete MG function: ",muscleGroup);
+    
     const navn = muscleGroup.navn;
     const updatedOvelser = muscleGroup.ovelser.filter(
       (id) => id !== exerciseID
