@@ -6,22 +6,25 @@ import { WorkoutPage } from "./pages/workoutPage/workout.page";
 import { StatsPage } from "./pages/statsPage/stats.page";
 
 import { ModalProvider } from "./context/modalContext";
+import { WorkoutProvider } from "./context/workoutContext";
 
 import "./globalStyles/global.styles.css";
 
 export const App = () => {
   return (
-    <ModalProvider>
+    <WorkoutProvider>
       <Router>
-        <AppLayout>
+        <ModalProvider>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/workouts" element={<WorkoutPage />} />
-            <Route path="/stats" element={<StatsPage />} />
+            <Route path="/" element={<AppLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path="workouts" element={<WorkoutPage />} />
+              <Route path="stats" element={<StatsPage />} />
+            </Route>
           </Routes>
-        </AppLayout>
+        </ModalProvider>
       </Router>
-    </ModalProvider>
+    </WorkoutProvider>
   );
 };
 

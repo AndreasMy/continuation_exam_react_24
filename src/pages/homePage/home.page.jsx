@@ -1,8 +1,20 @@
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import "./home.styles.css";
-import { useModal } from "../../context/modalContext";
+import { Calendar } from "../../components/calendar/calendar.component";
+import { useWorkoutContext } from "../../context/workoutContext";
 
 export const HomePage = () => {
+  const {
+    selectedDate,
+    storedExerciseGroup,
+    setStoredExerciseGroup,
+    isAddingWorkout,
+    setIsAddingWorkout,
+    handleSelectDate,
+    handleDateSelect,
+    handleClickEntryCard,
+  } = useWorkoutContext();
+
   return (
     <>
       <Wrapper className="page-content-wrapper">
@@ -38,11 +50,16 @@ export const HomePage = () => {
           <div className="section-container">
             {/* section container houses children */}
             <div className="home-calendar-row-content">
-              <div className="calendar-wrapper">
+           
+              <Calendar
+              selectedDate={selectedDate}
+              onDateSelect={handleDateSelect}
+              storedExerciseGroup={storedExerciseGroup}
+            />
                 {/* div above will be a container component */}
-                <div className="calendar-container"></div>
+                {/* <div className="calendar-container"></div> */}
                 {/* container will be defined at component level */}
-              </div>
+             
               <div className="calendar-info-wrapper"></div>
               {/* div above will be a container component */}
             </div>
@@ -59,7 +76,7 @@ export const HomePage = () => {
           <div className="section-container ">
             <div className="home-calendar-row-content">
               <div className="calendar-wrapper">
-                <div className="calendar-container"></div>
+                {/* <div className="calendar-container"></div> */}
               </div>
               <div className="calendar-info-wrapper"></div>
             </div>

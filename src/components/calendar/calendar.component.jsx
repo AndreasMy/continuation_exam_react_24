@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-
-import "./calendar.styles.css";
 import {
   startOfMonth,
   endOfMonth,
@@ -12,17 +10,25 @@ import {
   isSameDay,
   format,
 } from "date-fns";
-
 import { calendarData } from "../../data/calendarData";
 import { Wrapper } from "../wrapper/wrapper.component";
+import { useNavigate } from "react-router-dom";
+import "./calendar.styles.css";
 
-export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
+export const Calendar = ({
+  selectedDate,
+  onDateSelect,
+  storedExerciseGroup = [],
+}) => {
+  let navigate = useNavigate();
+
+
   const now = new Date();
   const [currentDate, setCurrentDate] = useState(now);
   const [calendarDays, setCalendarDays] = useState([]);
 
-  // Constants for current year and month
   const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
 
   useEffect(() => {
     generateCalendarDays();
@@ -32,6 +38,7 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
     if (onDateSelect && day.actualMonth === "current") {
       const fullDate = new Date(year, month, day.date);
       const formattedDate = format(fullDate, "yyyy-MM-dd");
+      navigate("/workouts", { state: { formattedDate } });
       onDateSelect(formattedDate);
     }
   };
@@ -41,7 +48,6 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
       ? storedExerciseGroup.map((session) => session.date)
       : []
   );
-  const month = currentDate.getMonth();
 
   const generateCalendarDays = () => {
     const days = [];
@@ -128,7 +134,6 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
                 onClick={() => onDaySelect(day)}
               >
                 {day.date}
-                {hasWorkout && <span className="workout-indicator">🏋️</span>}
               </li>
             );
           })}

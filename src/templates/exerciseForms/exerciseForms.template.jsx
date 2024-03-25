@@ -6,22 +6,23 @@ import { workoutForms } from "../../data/workoutForms";
 import { useModal } from "../../context/modalContext";
 
 import { populateMuscleGroupArray } from "../../API/apiUtilities";
+import { useWorkoutContext } from "../../context/workoutContext";
 
-export const ExerciseForms = ({ 
+export const ExerciseForms = ({
   musclegroupID,
   musclegroupSelected,
   loadExercises,
-  selectedDate,
 }) => {
   const { closeModal } = useModal();
+  const { selectedDate } = useWorkoutContext();
 
-  const submitExerciseForm = async (FormData) => { 
+  const submitExerciseForm = async (FormData) => {
     if (musclegroupSelected) {
       await submitForm(
         FormData,
         workoutForms.exerciseForms[0],
         "ovelser",
-        { muskelgruppe: musclegroupID, date: selectedDate }, 
+        { muskelgruppe: musclegroupID, date: selectedDate },
         async (response) => {
           await populateMuscleGroupArray(response._id, musclegroupID);
           await loadExercises();

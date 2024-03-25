@@ -103,5 +103,9 @@ header .calendar-current-date {
 }
 
 .calendar-dates li:not(.active):hover::before {
-  background: #c50404;
+    background: #104ed5;
+}
+
+.has-workout {
+  background: #104ed5;
 }

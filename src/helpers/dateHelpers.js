@@ -32,6 +32,5 @@ export const groupExercisesByDate = (exercises) => {
     date: date,
     exercises: groupedByDate[date],
   }));
-
   return transformedArray;
 };
