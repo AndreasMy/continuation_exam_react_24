@@ -54,8 +54,7 @@ export const WorkoutPage = () => {
                     onDateSelect={handleDateSelect}
                     storedExerciseGroup={storedExerciseGroup}
                   />
-                  <Wrapper className="session-cards-wrapper"> 
-                  {/* Previous solution */}
+                 {/*  <Wrapper className="session-cards-wrapper"> 
                     {Array.isArray(storedExerciseGroup) && 
                       storedExerciseGroup.map((session) => (
                         <div
@@ -76,11 +75,11 @@ export const WorkoutPage = () => {
                           </ul>
                         </div>
                       ))}
-                  </Wrapper>
-                  <Forms
+                  </Wrapper> */}
+{/*                   <Forms
                     onSubmit={handleSelectDate}
                     formConfig={workoutForms.workoutForm[0]}
-                  ></Forms>
+                  ></Forms> */}
                 </div>
               </Wrapper>
             )}

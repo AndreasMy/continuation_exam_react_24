@@ -1,3 +1,7 @@
+import React from "react";
+import arrowSVGLeft from "../../../public/assets/arrow-left-wide-fill.svg";
+import arrowSVGRight from "../../../public/assets/arrow-right-wide-fill.svg";
+
 import { useState, useEffect } from "react";
 import {
   startOfMonth,
@@ -21,7 +25,6 @@ export const Calendar = ({
   storedExerciseGroup = [],
 }) => {
   let navigate = useNavigate();
-
 
   const now = new Date();
   const [currentDate, setCurrentDate] = useState(now);
@@ -101,18 +104,28 @@ export const Calendar = ({
     <Wrapper className="calendar-container">
       <header className="calendar-header">
         <p className="calendar-current-date">{`${calendarData.months[month]} ${year}`}</p>
-        <span
-          onClick={() => handlePrevNextMonth("prev")}
-          className="material-symbols-rounded"
-        >
-          chevron_left
-        </span>
-        <span
-          onClick={() => handlePrevNextMonth("next")}
-          className="material-symbols-rounded"
-        >
-          chevron_right
-        </span>
+        <div className="calendar-arrow-wrapper">
+          <span
+            onClick={() => handlePrevNextMonth("prev")}
+            className="calendar-arrow-container"
+          >
+            <img
+              src={arrowSVGLeft}
+              alt="Arrow Left"
+              className="calendar-nav-arrow"
+            />
+          </span>
+          <span
+            onClick={() => handlePrevNextMonth("next")}
+            className="calendar-arrow-container"
+          >
+            <img
+              src={arrowSVGRight}
+              alt="Arrow Right"
+              className="calendar-nav-arrow"
+            />
+          </span>
+        </div>
       </header>
       <div className="calendar-body">
         <ul className="calendar-weekdays">

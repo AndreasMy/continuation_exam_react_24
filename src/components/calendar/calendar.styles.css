@@ -103,9 +103,29 @@ header .calendar-current-date {
 }
 
 .calendar-dates li:not(.active):hover::before {
-    background: #104ed5;
+  background: #104ed5;
 }
 
 .has-workout {
   background: #104ed5;
+}
+
+.calendar-arrow-wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-height: 35px;
+  width: 10%;
+}
+
+.calendar-arrow-container {
+  height: 30px;
+  width: 30px;
+}
+
+.calendar-nav-arrow {
+  cursor: pointer;
+}
+
+.calendar-nav-arrow:hover {
+  color: white;
 }
