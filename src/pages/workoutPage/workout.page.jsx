@@ -3,12 +3,9 @@ import { useEffect } from "react";
 
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { WorkoutCard } from "../../molecules/workoutCard/workoutCard.molecules";
-import { Forms } from "../../components/forms/forms.component";
-import { workoutForms } from "../../data/workoutForms";
 import { Calendar } from "../../components/calendar/calendar.component";
 import { useWorkoutContext } from "../../context/workoutContext";
 import { useLocation } from "react-router-dom";
-import { groupExercisesByDate } from "../../helpers/dateHelpers";
 
 import "./workout.styles.css";
 
@@ -20,9 +17,7 @@ export const WorkoutPage = () => {
     setStoredExerciseGroup,
     isAddingWorkout,
     setIsAddingWorkout,
-    handleSelectDate,
     handleDateSelect,
-    handleClickEntryCard,
   } = useWorkoutContext();
 
   let location = useLocation();

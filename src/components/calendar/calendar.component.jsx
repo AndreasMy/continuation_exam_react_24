@@ -20,7 +20,6 @@ import { useNavigate } from "react-router-dom";
 import "./calendar.styles.css";
 
 export const Calendar = ({
-  selectedDate,
   onDateSelect,
   storedExerciseGroup = [],
 }) => {

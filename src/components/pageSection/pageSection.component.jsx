@@ -5,11 +5,33 @@ export const PageSection = ({
   wrapperClassName = "",
   containerClassName = "",
   wrapperId = "",
+  bannerContent = null,
+  bannerProps = {},
+  wrapperProps = {}, // Additional props for the wrapper
+  containerProps = {}, // Additional props for the container
+  useInnerContainer = false,
 }) => {
+  const content = useInnerContainer ? (
+    <div className="-section-inner-container">{children}</div>
+  ) : (
+    children
+  );
   return (
-    <div className={`section-wrapper ${wrapperClassName}`} id={wrapperId}>
-      <div className={`section-container ${containerClassName}`}>
-        {children}
+    <div
+      id={wrapperId}
+      className={`section-wrapper ${wrapperClassName}`}
+      {...wrapperProps}
+    >
+      {bannerContent && (
+        <div className="section-banner" {...bannerProps}>
+          {bannerContent}
+        </div>
+      )}
+      <div
+        className={`section-container ${containerClassName}`}
+        {...containerProps}
+      >
+        {content}
       </div>
     </div>
   );

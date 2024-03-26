@@ -2,24 +2,30 @@ import { Wrapper } from "../../components/wrapper/wrapper.component";
 import "./home.styles.css";
 import { Calendar } from "../../components/calendar/calendar.component";
 import { useWorkoutContext } from "../../context/workoutContext";
+import bannerImage from "../../../public/assets/banner-image.webp";
+import { PageSection } from "../../components/pageSection/pageSection.component";
+import { Heading } from "../../components/heading/heading.component";
 
 export const HomePage = () => {
-  const {
-    selectedDate,
-    storedExerciseGroup,
-    setStoredExerciseGroup,
-    isAddingWorkout,
-    setIsAddingWorkout,
-    handleSelectDate,
-    handleDateSelect,
-    handleClickEntryCard,
-  } = useWorkoutContext();
+  const { selectedDate, storedExerciseGroup, handleDateSelect } =
+    useWorkoutContext();
 
   return (
     <>
       <Wrapper className="page-content-wrapper">
-        <div className="section-wrapper home-welcome-wrapper">
-          <div className="section-banner welcome-banner"></div>
+        <PageSection
+          wrapperClassName="home-welcome-wrapper"
+          wrapperProps={{style: {flexDirection: "column"}}}
+          containerProps={{style: {flexDirection: "column"}}}
+          bannerContent={
+            <img
+              src={bannerImage}
+              alt="Banner image"
+              className="section-banner welcome-banner"
+            />
+          }
+        >
+          {/* Make component */}
           <div className="section-container">
             <h1>Welcome, User!</h1>
             <div className="home-welcome-section-stats">
@@ -37,36 +43,26 @@ export const HomePage = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="section-wrapper">
-          <div className="section-banner calendar-banner">
-            {/* banner will have two modes; image or text banner */}
+        </PageSection>
+        <PageSection
+          wrapperClassName="home-calendar-wrapper"
+          wrapperProps={{ style: { background: "var(--gradient-B)" } }}
+          bannerProps={{style: {background: "var(--banner-color)"}}}
+          bannerContent={
             <div className="banner-text-content">
-              <h4>Your Monthly Overview</h4>
-              <p>Select date to register a new workout</p>
+              <Heading as="h3">Your Monthly Overview</Heading>
+              <Heading as="p">Select a date to log a workout session</Heading>
             </div>
-          </div>
-          <div className="section-container">
-            {/* section container houses children */}
-            <div className="home-calendar-row-content">
-           
-              <Calendar
-              selectedDate={selectedDate}
-              onDateSelect={handleDateSelect}
-              storedExerciseGroup={storedExerciseGroup}
-            />
-                {/* div above will be a container component */}
-                {/* <div className="calendar-container"></div> */}
-                {/* container will be defined at component level */}
-             
-              <div className="calendar-info-wrapper"></div>
-              {/* div above will be a container component */}
-            </div>
-          </div>
-        </div>
+          }
+        >
+          <Calendar
+            selectedDate={selectedDate}
+            onDateSelect={handleDateSelect}
+            storedExerciseGroup={storedExerciseGroup}
+          />
+        </PageSection>
 
-        <div className="section-wrapper home-stat-wrapper">
+{/*         <div className="section-wrapper home-stat-wrapper">
           <div className="section-banner calendar-banner">
             <div className="banner-text-content">
               <h4>Your Stats</h4>
@@ -76,12 +72,11 @@ export const HomePage = () => {
           <div className="section-container ">
             <div className="home-calendar-row-content">
               <div className="calendar-wrapper">
-                {/* <div className="calendar-container"></div> */}
               </div>
               <div className="calendar-info-wrapper"></div>
             </div>
           </div>
-        </div>
+        </div> */}
       </Wrapper>
     </>
   );
