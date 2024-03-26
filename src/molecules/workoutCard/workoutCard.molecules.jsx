@@ -1,6 +1,7 @@
 import "./workoutCard.styles.css";
-
 import * as React from "react";
+
+import { format } from "date-fns";
 import { useFetchList } from "../../API/useFetchList";
 import { MuscleGroupForms } from "../../templates/musclegroupForms/musclegroupForms.template";
 import { ExerciseList } from "../../templates/workoutList/exerciseList.template";
@@ -13,7 +14,8 @@ import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { useModal } from "../../context/modalContext";
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { Heading } from "../../components/heading/heading.component";
 
 export const WorkoutCard = ({
   selectedDate,
@@ -77,6 +79,8 @@ export const WorkoutCard = ({
 
   return (
     <Wrapper className="workout-card-large">
+      <Heading as="h1">{format(new Date(selectedDate), "EEEE MMMM d")}</Heading>
+      <div className="line"></div>
       {musclegroups.map((group) => (
         <div key={group._id} className="workout-card-category-item">
           <MuscleGroupForms
