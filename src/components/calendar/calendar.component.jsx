@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import "./calendar.styles.css";
 
 export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
-  let navigate = useNavigate();
+  let navigate = useNavigate(); // open modal instead of navigate
 
   const now = new Date();
   const [currentDate, setCurrentDate] = useState(now);
