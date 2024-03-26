@@ -19,10 +19,7 @@ import { Wrapper } from "../wrapper/wrapper.component";
 import { useNavigate } from "react-router-dom";
 import "./calendar.styles.css";
 
-export const Calendar = ({
-  onDateSelect,
-  storedExerciseGroup = [],
-}) => {
+export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
   let navigate = useNavigate();
 
   const now = new Date();
@@ -61,8 +58,10 @@ export const Calendar = ({
 
     // Add days from the previous month to fill the first week
     for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+      const prevMonthDay = subDays(startDay, i + 1);
       days.push({
-        date: getDate(subDays(startDay, i + 1)),
+        fullDate: format(prevMonthDay, "yyyy-MM-dd"),
+        date: getDate(prevMonthDay),
         class: "inactive",
         actualMonth: "previous",
       });
@@ -72,6 +71,7 @@ export const Calendar = ({
     for (let i = 0; i < daysInCurrentMonth; i++) {
       const day = addDays(startDay, i);
       days.push({
+        fullDate: format(day, "yyyy-MM-dd"),
         date: getDate(day),
         class: isSameDay(day, new Date()) ? "active" : "",
         actualMonth: "current",
@@ -84,13 +84,14 @@ export const Calendar = ({
 
     // Add days from the next month
     for (let i = 0; i < daysFromNextMonth; i++) {
+      const nextMonthDay = addDays(endDay, i + 1);
       days.push({
-        date: getDate(addDays(endDay, i + 1)),
+        fullDate: format(nextMonthDay, "yyyy-MM-dd"),
+        date: getDate(nextMonthDay),
         class: "inactive",
         actualMonth: "next",
       });
     }
-
     setCalendarDays(days);
   };
 
@@ -134,11 +135,10 @@ export const Calendar = ({
         </ul>
         <ul className="calendar-dates">
           {calendarDays.map((day, index) => {
-            const fullDate = format(
-              new Date(year, month, day.date),
-              "yyyy-MM-dd"
-            );
-            const hasWorkout = workoutDates.has(fullDate);
+            const hasWorkout =
+              workoutDates.has(day.fullDate) &&
+              day.actualMonth ===
+                "current"; /* Adjusted to check full date and ensure day is in current month */
             return (
               <li
                 key={index}

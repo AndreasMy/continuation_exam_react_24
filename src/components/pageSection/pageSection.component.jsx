@@ -12,7 +12,7 @@ export const PageSection = ({
   useInnerContainer = false,
 }) => {
   const content = useInnerContainer ? (
-    <div className="-section-inner-container">{children}</div>
+    <div className="section-inner-container">{children}</div>
   ) : (
     children
   );

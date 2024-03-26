@@ -77,6 +77,8 @@ export const MuscleGroupForms = ({
         <InteractiveListItem
           onDelete={() => handleDeleteMuscleGroup(group._id)}
           onEdit={() => handleEditMuscleGroup(group._id)}
+          tagClassName="musclegroup-category-container"
+          tag="h2"
         >
           {group.navn}
         </InteractiveListItem>

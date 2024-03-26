@@ -1,11 +1,20 @@
 /* eslint-disable react/prop-types */
 import { Button } from "../../components/button/button.component";
 
-export const InteractiveListItem = ({ children, onDelete, onEdit, onSelect }) => {
+export const InteractiveListItem = ({
+  children,
+  onDelete,
+  onEdit,
+  onSelect,
+  listClassName,
+  listContainerClassName,
+  tag: Tag = "div",
+  tagClassName = "",
+}) => {
   return (
-    <li onClick={onSelect} className="list-item">
-       <div className="list-item-content">
-      {children}
+    <li onClick={onSelect} className={`list-item ${listClassName || ""}`}>
+      <Tag className={`list-item-content ${listContainerClassName || ""}`}>
+        {children}
       <div className="list-item-btn-container">
         <Button className="list-btn delete-btn" onClick={onDelete}>
           Delete
@@ -13,10 +22,8 @@ export const InteractiveListItem = ({ children, onDelete, onEdit, onSelect }) =>
         <Button className="list-btn edit-btn" onClick={onEdit}>
           Edit
         </Button>
-       </div>
       </div>
+      </Tag>
     </li>
   );
 };
-
-

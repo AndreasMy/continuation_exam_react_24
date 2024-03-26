@@ -46,6 +46,8 @@ export const HomePage = () => {
         </PageSection>
         <PageSection
           wrapperClassName="home-calendar-wrapper"
+          useInnerContainer={true}
+          containerProps={{style: {padding: "20px"}}}
           wrapperProps={{ style: { background: "var(--gradient-B)" } }}
           bannerProps={{style: {background: "var(--banner-color)"}}}
           bannerContent={
@@ -60,6 +62,7 @@ export const HomePage = () => {
             onDateSelect={handleDateSelect}
             storedExerciseGroup={storedExerciseGroup}
           />
+          <div className="workout-list-wrapper"></div>
         </PageSection>
 
 {/*         <div className="section-wrapper home-stat-wrapper">

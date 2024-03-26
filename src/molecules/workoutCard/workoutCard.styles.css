@@ -1,50 +1,99 @@
 .workout-entry-wrapper {
-    display: flex;
-    width: 100%;
-    min-height: 300px;
-    flex: 1;
-  }
-  
-  .container.left,
-  .container.right {
-    flex: 1;
-    background-color: #1d2124;
-    border-radius: 0;
-  }
-  
-  .container.right {
-    width: 300px;
-    padding: 24px;
-    padding: 18px;
-  }
-  
-  .modal-forms {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid black;
-    padding: 24px;
-  }
-  
-  .workout-card-large {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  
-    width: 85%;
-    border: 1px solid black;
-    padding: 24px;
-  }
-  
-  .card-upper-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .line {
-    height: 1px;
-    width: 100%;
-    background-color: antiquewhite;
-    margin: 12px 0;
-  }
+  display: flex;
+  width: 100%;
+  min-height: 300px;
+  flex: 1;
+}
+
+.container.left,
+.container.right {
+  flex: 1;
+  background-color: #1d2124;
+  border-radius: 0;
+}
+
+.container.right {
+  width: 300px;
+  padding: 24px;
+  padding: 18px;
+}
+
+.modal-forms {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding: 24px;
+}
+
+.workout-card-large {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 85%;
+
+  padding: 24px;
+}
+
+.card-upper-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: rgb(46, 64, 65);
+  margin: 12px 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
+  padding: 4px 0;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  min-width: 100%;
+  height: 35px;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.list-item:hover {
+  background-color: rgba(27, 105, 174, 0.089);
+}
+
+.list-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+
+  border-radius: 5px;
+  font-size: 1.2rem;
+  min-width: 95%;
+}
+
+.delete-btn {
+  background-color: rgb(78, 43, 32);
+  color: antiquewhite;
+}
+
+.delete-btn:hover {
+  background-color: rgb(216, 83, 43);
+}
+
+.edit-btn {
+  background-color: rgb(39, 62, 76);
+  padding: 9px;
+  color: antiquewhite;
+}
+
+.musclegroup-category-container {
+  height: 30px;
+}

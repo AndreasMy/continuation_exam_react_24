@@ -80,6 +80,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
             key={exercise._id}
             onDelete={() => handleDeleteExercise(exercise._id)}
             onEdit={() => handleEditExercise(exercise._id)}
+            
           >
             <p>{exercise.name}</p>
             <p>Wheight: {exercise.weight}</p>
