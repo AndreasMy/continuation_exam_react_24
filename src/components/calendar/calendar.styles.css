@@ -4,7 +4,7 @@
   min-height: 450px;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12); /* imporve this */
 }
 
 .calendar-container header {
@@ -18,18 +18,7 @@ header .calendar-navigation {
   display: flex;
 }
 
-header .calendar-navigation span {
-  height: 38px;
-  width: 38px;
-  margin: 0 1px;
-  cursor: pointer;
-  text-align: center;
-  line-height: 38px;
-  border-radius: 50%;
-  user-select: none;
-  color: #aeabab;
-  font-size: 1.9rem;
-}
+
 
 .calendar-navigation span:last-child {
   margin-right: -10px;
@@ -99,15 +88,22 @@ header .calendar-current-date {
 }
 
 .calendar-dates li.active::before {
-  background: #6332c5;
+  background: #008280;
 }
 
 .calendar-dates li:not(.active):hover::before {
-  background: #104ed5;
+  background: #005082;
 }
 
-.has-workout {
-  background: #104ed5;
+.calendar-dates li.has-workout::before {
+  content: "";
+  position: absolute; 
+  background: #005082; 
+  z-index: -1; 
+}
+
+.calendar-dates li {
+  position: relative;
 }
 
 .calendar-arrow-wrapper {

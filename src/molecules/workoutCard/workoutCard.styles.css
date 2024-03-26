@@ -102,3 +102,32 @@
 .musclegroup-list {
   list-style: none;
 }
+
+.add-exercise-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  color: #3378a2;
+  background-color: #0c2839;
+  transition: color 0.2s ease, background-color 0.3s ease;
+}
+
+.add-exercise-button:hover {
+  color: antiquewhite;
+  background-color: #005082;
+}
+
+.list-item-content {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+}
+
+.exercise-info {
+  flex: 1; /* This ensures each div takes equal space */
+  display: flex;
+  align-items: center; /* Aligns <p> content to the start */
+  justify-content: flex-start; /* Centers <p> content horizontally if needed */
+  margin: 0;
+
+}

@@ -78,11 +78,21 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
         {exercisesList.map((exercise) => (
           <li key={exercise._id} className="list-item">
             <div className="list-item-content">
-              <p>{exercise.name}</p>
-              <p>Wheight: {exercise.weight}</p>
-              <p>Repetitions: {exercise.repetitions}</p>
-              <p>Sets: {exercise.sets}</p>
-              <p>Dato: {exercise.date}</p>
+              <div className="exercise-info">
+                <p>{exercise.name}</p>
+              </div>
+              <div className="exercise-info">
+                <p>Weight: {exercise.weight}</p>
+              </div>
+              <div className="exercise-info">
+                <p>Repetitions: {exercise.repetitions}</p>
+              </div>
+              <div className="exercise-info">
+                <p>Sets: {exercise.sets}</p>
+              </div>
+              <div className="exercise-info">
+                <p>Date: {exercise.date}</p>
+              </div>
               <div className="list-item-btn-container">
                 <Button
                   className="list-btn delete-btn"

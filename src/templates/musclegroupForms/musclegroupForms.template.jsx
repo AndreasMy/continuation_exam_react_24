@@ -79,7 +79,7 @@ export const MuscleGroupForms = ({
       <ul>
         <li className="musclegroup-list">
           <div className="muscle-group-list-item">
-            <h2>{group.navn}:</h2>
+            <h3>{group.navn}:</h3>
             <div className="list-item-btn-container">
               <Button
                 className="list-btn delete-btn"

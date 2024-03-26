@@ -113,7 +113,7 @@ export const WorkoutCard = ({
               )
             }
           >
-            Add Exercise
+            New Exercise
           </Button>
           <div className="line"></div>
         </div>
