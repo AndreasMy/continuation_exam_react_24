@@ -12,9 +12,9 @@ import "./globalStyles/global.styles.css";
 
 export const App = () => {
   return (
-    <WorkoutProvider>
-      <Router>
-        <ModalProvider>
+    <ModalProvider>
+      <WorkoutProvider>
+        <Router>
           <Routes>
             <Route path="/" element={<AppLayout />}>
               <Route index element={<HomePage />} />
@@ -22,9 +22,9 @@ export const App = () => {
               <Route path="stats" element={<StatsPage />} />
             </Route>
           </Routes>
-        </ModalProvider>
-      </Router>
-    </WorkoutProvider>
+        </Router>
+      </WorkoutProvider>
+    </ModalProvider>
   );
 };
 

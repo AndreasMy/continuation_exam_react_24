@@ -1,31 +1,38 @@
 import React, { createContext, useContext, useState } from "react";
+import { useEffect } from "react";
 
 const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-  const [muscleGroupID, setMuscleGroupID] = useState(null);
+  const [modals, setModals] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    if (modals.length > 0) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [modals.length]);
 
   const openModal = (content, mgID = null) => {
-    setModalContent(content);
-    setMuscleGroupID(mgID);
-    setIsModalOpen(true);
+    setModals((currentModals) => [...currentModals, { content, mgID }]);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    setModalContent(null);
+    setModals((currentModals) => currentModals.slice(0, -1));
   };
-
+  console.log(modals);
   return (
     <ModalContext.Provider
       value={{
-        isModalOpen,
-        modalContent,
         openModal,
         closeModal,
-        muscleGroupID,
+        modals,
       }}
     >
       {children}

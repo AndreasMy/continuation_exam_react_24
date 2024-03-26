@@ -1,6 +1,10 @@
 import React from "react";
 import arrowSVGLeft from "../../../public/assets/arrow-left-wide-fill.svg";
 import arrowSVGRight from "../../../public/assets/arrow-right-wide-fill.svg";
+import { WorkoutCard } from "../../molecules/workoutCard/workoutCard.molecules";
+import { useWorkoutContext } from "../../context/workoutContext";
+
+import { useModal } from "../../context/modalContext";
 
 import { useState, useEffect } from "react";
 import {
@@ -16,11 +20,15 @@ import {
 } from "date-fns";
 import { calendarData } from "../../data/calendarData";
 import { Wrapper } from "../wrapper/wrapper.component";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import "./calendar.styles.css";
 
 export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
-  let navigate = useNavigate(); // open modal instead of navigate
+  // let navigate = useNavigate(); // open modal instead of navigate
+
+  const { openModal } = useModal();
+  const { setStoredExerciseGroup, exercisesList, loadExercises } =
+    useWorkoutContext();
 
   const now = new Date();
   const [currentDate, setCurrentDate] = useState(now);
@@ -33,12 +41,21 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
     generateCalendarDays();
   }, [currentDate]);
 
-  const onDaySelect = (day) => {
+  const onDaySelect = (day, event) => {
     if (onDateSelect && day.actualMonth === "current") {
+      event.stopPropagation();
       const fullDate = new Date(year, month, day.date);
       const formattedDate = format(fullDate, "yyyy-MM-dd");
-      navigate("/workouts", { state: { formattedDate } });
       onDateSelect(formattedDate);
+
+      openModal(<WorkoutCard selectedDate={formattedDate} />, {
+        onClose: async () => {
+          await loadExercises();
+          const updatedList = groupExercisesByDate(exercisesList);
+          setStoredExerciseGroup(updatedList);
+          setIsAddingWorkout(false);
+        },
+      });
     }
   };
 
@@ -141,7 +158,7 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
               <li
                 key={index}
                 className={`${day.class} ${hasWorkout ? "has-workout" : ""}`}
-                onClick={() => onDaySelect(day)}
+                onClick={(event) => onDaySelect(day, event)} // event is deprecated
               >
                 {day.date}
               </li>

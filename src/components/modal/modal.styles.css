@@ -3,35 +3,38 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 
-  background-color: rgba(4, 14, 32, 0.471);
+  background-color: rgba(3, 9, 20, 0.69);
   backdrop-filter: blur(24px);
 }
 
 .modal-overlay.open {
-    display: block;
+  display: flex;
 }
 
 .modal-container {
   display: flex;
   flex-direction: column;
-
-  min-height: 140px;
-  min-width: 300px;
+align-items: center;
+  height: 90%;
+  width: 60%;
   padding: 15px;
-  background-color: var(--primary-color);
+  background: var(--gradient-A);
 
   border-radius: 8px;
 }
 
 .modal-content {
   display: flex;
-  
+  justify-content: center;
+  width: 100%;
+  overflow-x: scroll;
 }
 
 .modal-close-button {

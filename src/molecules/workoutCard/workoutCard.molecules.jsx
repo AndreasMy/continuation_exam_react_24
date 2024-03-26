@@ -14,7 +14,7 @@ import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { useModal } from "../../context/modalContext";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { Heading } from "../../components/heading/heading.component";
 
 export const WorkoutCard = ({
@@ -22,8 +22,6 @@ export const WorkoutCard = ({
   setIsAddingWorkout,
   setStoredExerciseGroup,
 }) => {
-  let navigate = useNavigate();
-
   const { openModal, setMuscleGroupID, musclegroupID } = useModal();
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
@@ -43,7 +41,6 @@ export const WorkoutCard = ({
     await loadExercises();
     const updatedList = groupExercisesByDate(exercisesList);
     setStoredExerciseGroup(updatedList);
-    navigate(-1);
     setIsAddingWorkout(false);
   };
 

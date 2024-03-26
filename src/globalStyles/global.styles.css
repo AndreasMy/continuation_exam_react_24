@@ -29,6 +29,10 @@ li,
   color: var(--text-color);
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .section-wrapper {
   display: flex;
   flex-direction: column;
