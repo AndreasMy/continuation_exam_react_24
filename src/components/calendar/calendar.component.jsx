@@ -136,9 +136,7 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
         <ul className="calendar-dates">
           {calendarDays.map((day, index) => {
             const hasWorkout =
-              workoutDates.has(day.fullDate) &&
-              day.actualMonth ===
-                "current"; /* Adjusted to check full date and ensure day is in current month */
+              workoutDates.has(day.fullDate) && day.actualMonth === "current";
             return (
               <li
                 key={index}

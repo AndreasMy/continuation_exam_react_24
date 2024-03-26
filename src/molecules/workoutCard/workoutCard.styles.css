@@ -68,7 +68,8 @@
   background-color: rgba(27, 105, 174, 0.089);
 }
 
-.list-item-content {
+.list-item-content,
+.muscle-group-list-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -76,7 +77,7 @@
 
   border-radius: 5px;
   font-size: 1.2rem;
-  min-width: 95%;
+  min-width: 100%;
 }
 
 .delete-btn {
@@ -96,4 +97,8 @@
 
 .musclegroup-category-container {
   height: 30px;
+}
+
+.musclegroup-list {
+  list-style: none;
 }

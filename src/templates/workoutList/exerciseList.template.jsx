@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
 import { Wrapper } from "../../components/wrapper/wrapper.component";
-import { InteractiveListItem } from "../../molecules/InteractiveListItem/InteractiveListItem.molecule";
 import { deleteExercises } from "../../API/apiUtilities";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { deleteExerciseFromMuscleGroup } from "../../API/apiUtilities";
 import { useModal } from "../../context/modalContext";
 import { makeAPIRequest } from "../../API/apiServices";
+import { Button } from "../../components/button/button.component";
 
 export const ExerciseList = ({ exercisesList, loadExercises }) => {
-  const { openModal, closeModal,} = useModal();
+  const { openModal, closeModal } = useModal();
 
   const handleDeleteExercise = async (exerciseID) => {
     try {
@@ -56,7 +56,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
 
       const updatedFormData = {
         ...formData,
-        muskelgruppe: currentExercise.muskelgruppe, 
+        muskelgruppe: currentExercise.muskelgruppe,
         date: currentExercise.date,
       };
 
@@ -66,7 +66,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
         id: exerciseId,
       });
       loadExercises();
-      closeModal(); 
+      closeModal();
     } catch (error) {
       console.error("Error submitting edited form", error);
     }
@@ -76,18 +76,29 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
     <Wrapper className={"exercise-list"}>
       <ul>
         {exercisesList.map((exercise) => (
-          <InteractiveListItem
-            key={exercise._id}
-            onDelete={() => handleDeleteExercise(exercise._id)}
-            onEdit={() => handleEditExercise(exercise._id)}
-            
-          >
-            <p>{exercise.name}</p>
-            <p>Wheight: {exercise.weight}</p>
-            <p>Repetitions: {exercise.repetitions}</p>
-            <p>Sets: {exercise.sets}</p>
-            <p>Dato: {exercise.date}</p>
-          </InteractiveListItem>
+          <li key={exercise._id} className="list-item">
+            <div className="list-item-content">
+              <p>{exercise.name}</p>
+              <p>Wheight: {exercise.weight}</p>
+              <p>Repetitions: {exercise.repetitions}</p>
+              <p>Sets: {exercise.sets}</p>
+              <p>Dato: {exercise.date}</p>
+              <div className="list-item-btn-container">
+                <Button
+                  className="list-btn delete-btn"
+                  onClick={() => handleDeleteExercise(exercise._id)}
+                >
+                  Delete
+                </Button>
+                <Button
+                  className="list-btn edit-btn"
+                  onClick={() => handleEditExercise(exercise._id)}
+                >
+                  Edit
+                </Button>
+              </div>
+            </div>
+          </li>
         ))}
       </ul>
     </Wrapper>

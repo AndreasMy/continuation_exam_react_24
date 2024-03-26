@@ -6,6 +6,7 @@ import { workoutForms } from "../../data/workoutForms";
 import { makeAPIRequest } from "../../API/apiServices";
 import { deleteMuscleGroupAndExercises } from "../../API/apiUtilities";
 import { useModal } from "../../context/modalContext";
+import { Button } from "../../components/button/button.component";
 
 export const MuscleGroupForms = ({
   group,
@@ -33,7 +34,9 @@ export const MuscleGroupForms = ({
       openModal(
         <Forms
           formConfig={workoutForms.musclegroupForms[0]}
-          onSubmit={(formData) => submitUpdatedMuscleGroup(formData, musclegroupID)} 
+          onSubmit={(formData) =>
+            submitUpdatedMuscleGroup(formData, musclegroupID)
+          }
           defaultValues={musclegroupObj}
         />
       );
@@ -74,14 +77,25 @@ export const MuscleGroupForms = ({
   return (
     <Wrapper className={"muscle-group-section"}>
       <ul>
-        <InteractiveListItem
-          onDelete={() => handleDeleteMuscleGroup(group._id)}
-          onEdit={() => handleEditMuscleGroup(group._id)}
-          tagClassName="musclegroup-category-container"
-          tag="h2"
-        >
-          {group.navn}
-        </InteractiveListItem>
+        <li className="musclegroup-list">
+          <div className="muscle-group-list-item">
+            <h2>{group.navn}:</h2>
+            <div className="list-item-btn-container">
+              <Button
+                className="list-btn delete-btn"
+                onClick={() => handleDeleteMuscleGroup(group._id)}
+              >
+                Delete
+              </Button>
+              <Button
+                className="list-btn edit-btn"
+                onClick={() => handleEditMuscleGroup(group._id)}
+              >
+                Edit
+              </Button>
+            </div>
+          </div>
+        </li>
       </ul>
     </Wrapper>
   );
