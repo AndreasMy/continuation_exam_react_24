@@ -1,6 +1,6 @@
 import React from "react";
-import arrowSVGLeft from "../../../public/assets/arrow-left-wide-fill.svg";
-import arrowSVGRight from "../../../public/assets/arrow-right-wide-fill.svg";
+import arrowSVGLeft from "/assets/arrow-left-wide-fill.svg";
+import arrowSVGRight from "/assets/arrow-right-wide-fill.svg";
 import { WorkoutCard } from "../../molecules/workoutCard/workoutCard.molecules";
 import { useWorkoutContext } from "../../context/workoutContext";
 import { useCalendarContext } from "../../context/calendarContex";

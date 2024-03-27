@@ -2,7 +2,7 @@ import "./home.styles.css";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Calendar } from "../../components/calendar/calendar.component";
 import { useWorkoutContext } from "../../context/workoutContext";
-import bannerImage from "../../../public/assets/banner-image.webp";
+import bannerImage from "/assets/banner-image.webp";
 import { PageSection } from "../../components/pageSection/pageSection.component";
 import { Heading } from "../../components/heading/heading.component";
 import { WorkoutSessionList } from "../../molecules/workoutSessionList/WorkoutSessionList.molecules";
