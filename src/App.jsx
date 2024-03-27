@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { AppLayout } from "./layout/appLayout.component";
 import { HomePage } from "./pages/homePage/home.page";
-import { StatsPage } from "./pages/statsPage/stats.page";
 
 import { ModalProvider } from "./context/modalContext";
 import { WorkoutProvider } from "./context/workoutContext";

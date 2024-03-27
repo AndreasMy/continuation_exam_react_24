@@ -1,4 +1,3 @@
-import { NavBar } from "../components/navbar/navbar.component";
 import { Outlet } from "react-router-dom";
 import { Modal } from "../components/modal/modal.component";
 import { useModal } from "../context/modalContext";

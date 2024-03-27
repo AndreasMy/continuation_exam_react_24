@@ -6,24 +6,28 @@ import bannerImage from "../../../public/assets/banner-image.webp";
 import { PageSection } from "../../components/pageSection/pageSection.component";
 import { Heading } from "../../components/heading/heading.component";
 import { WorkoutSessionList } from "../../molecules/workoutSessionList/WorkoutSessionList.molecules";
-import { useState, useEffect } from "react";
 import { calculateWeeklyGoalProgress } from "../../helpers/dateHelpers";
-import { groupExercisesByDate, calculateCurrentStreak, calculateTotalWorkouts } from "../../helpers/dateHelpers";
+import {
+  groupExercisesByDate,
+  calculateCurrentStreak,
+  calculateTotalWorkouts,
+} from "../../helpers/dateHelpers";
+import { useState, useEffect } from "react";
 
 export const HomePage = () => {
   const [weeklyGoalProgress, setWeeklyGoalProgress] = useState("");
   const [totalWorkouts, setTotalWorkouts] = useState(0);
   const [currentStreak, setCurrentStreak] = useState(0);
-  
+
   const { selectedDate, storedExerciseGroup, handleDateSelect } =
     useWorkoutContext();
 
-    useEffect(() => {
-      if (storedExerciseGroup && storedExerciseGroup.length > 0) {
-        setTotalWorkouts(calculateTotalWorkouts(storedExerciseGroup));
-        setCurrentStreak(calculateCurrentStreak(storedExerciseGroup, 3));
-      }
-    }, [storedExerciseGroup]);
+  useEffect(() => {
+    if (storedExerciseGroup && storedExerciseGroup.length > 0) {
+      setTotalWorkouts(calculateTotalWorkouts(storedExerciseGroup));
+      setCurrentStreak(calculateCurrentStreak(storedExerciseGroup, 3));
+    }
+  }, [storedExerciseGroup]);
 
   useEffect(() => {
     if (storedExerciseGroup && storedExerciseGroup.length > 0) {

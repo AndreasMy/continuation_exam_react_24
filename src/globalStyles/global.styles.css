@@ -24,8 +24,7 @@ h3,
 h4,
 h5,
 p,
-li,
-.navbar-link-elem {
+li {
   color: var(--text-color);
 }
 

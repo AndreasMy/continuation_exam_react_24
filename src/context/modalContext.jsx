@@ -7,7 +7,6 @@ const ModalContext = createContext();
 export const ModalProvider = ({ children }) => {
   const [modals, setModals] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const {loadExercises} = useWorkoutContext();
 
   useEffect(() => {

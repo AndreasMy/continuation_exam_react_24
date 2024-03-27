@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Wrapper } from "../../components/wrapper/wrapper.component";
-import { InteractiveListItem } from "../../molecules/InteractiveListItem/InteractiveListItem.molecule";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
 import { makeAPIRequest } from "../../API/apiServices";
@@ -16,18 +15,18 @@ export const MuscleGroupForms = ({
 }) => {
   const { openModal, closeModal } = useModal();
 
-  const handleDeleteMuscleGroup = (id) => {
+  const handleDeleteMuscleGroup = (id, event) => {
     const confirmDeletion = async () => {
       try {
         await deleteMuscleGroupAndExercises(id);
         await loadExercises();
         await loadMuscleGroups();
-        closeModal(); 
+        closeModal();
       } catch (error) {
         console.error("Error deleting muscle group", error);
       }
     };
-  
+
     openModal(
       <ModalConfirm
         onConfirm={() => confirmDeletion()}
@@ -35,7 +34,6 @@ export const MuscleGroupForms = ({
       />
     );
   };
-  
 
   const handleEditMuscleGroup = async (musclegroupID) => {
     try {

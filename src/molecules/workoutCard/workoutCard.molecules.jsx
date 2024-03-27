@@ -4,7 +4,7 @@ import * as React from "react";
 import { format } from "date-fns";
 import { useFetchList } from "../../API/useFetchList";
 import { MuscleGroupForms } from "../../templates/musclegroupForms/musclegroupForms.template";
-import { ExerciseList } from "../../templates/workoutList/exerciseList.template";
+import { ExerciseList } from "../../templates/exerciseList/exerciseList.template";
 import { ExerciseForms } from "../../templates/exerciseForms/exerciseForms.template";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Button } from "../../components/button/button.component";
@@ -39,6 +39,7 @@ export const WorkoutCard = ({ selectedDate }) => {
       { exercises: [] },
       loadMuscleGroups
     );
+    closeModal()
     setIsClicked(false);
   };
 
