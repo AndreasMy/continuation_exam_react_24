@@ -6,23 +6,26 @@ import { StatsPage } from "./pages/statsPage/stats.page";
 
 import { ModalProvider } from "./context/modalContext";
 import { WorkoutProvider } from "./context/workoutContext";
+import { CalendarProvider } from "./context/calendarContex";
 
 import "./globalStyles/global.styles.css";
 
 export const App = () => {
   return (
-    <WorkoutProvider>
-      <ModalProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<AppLayout />}>
-              <Route index element={<HomePage />} />
-              <Route path="stats" element={<StatsPage />} />
-            </Route>
-          </Routes>
-        </Router>
-      </ModalProvider>
-    </WorkoutProvider>
+    <CalendarProvider>
+      <WorkoutProvider>
+        <ModalProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<AppLayout />}>
+                <Route index element={<HomePage />} />
+                <Route path="stats" element={<StatsPage />} />
+              </Route>
+            </Routes>
+          </Router>
+        </ModalProvider>
+      </WorkoutProvider>
+    </CalendarProvider>
   );
 };
 

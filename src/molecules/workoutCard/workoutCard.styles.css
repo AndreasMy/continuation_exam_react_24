@@ -44,7 +44,7 @@
   height: 1px;
   width: 100%;
   background-color: rgb(46, 64, 65);
-  margin: 12px 0;
+  margin: 8px 0;
 }
 
 .list-item {
@@ -127,34 +127,15 @@
   align-items: center; /* Aligns <p> content to the start */
   justify-content: flex-start; /* Centers <p> content horizontally if needed */
   margin: 0;
-
 }
 
 /* from workout.styles.css */
-
-.container {
-  background-color: #e9e9e9;
-  padding: 18px;
-
-  border-radius: 8px;
-}
-
-.muscle-group-list {
-  width: 100%;
-}
-
-.ui-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .add-btn {
   color: rgb(242, 88, 53);
 }
 
-.add-btn
-{
+.add-btn {
   text-align: center;
   background-color: rgb(31, 31, 34);
   box-shadow: rgba(0, 0, 0, 0.096) 0px 6px 12px;
@@ -207,37 +188,3 @@ label {
   width: 100%;
   padding: 20px;
 }
-
-/* Workout session cards styles */
-
-/* .session-cards-wrapper {
-  display: flex;
-  flex-direction: column;
-  
-  width: 100%;
-}
-
-.session-card {
-  margin: 2%;
-  padding: 18px;
-  width: 80%;
-  background-color: rgb(74, 80, 74);
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.session-card li {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-}
-
-.workout-list-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  width: 40%;
-  border: 1px solid rgb(36, 90, 108);
-  border-radius: 8px;
-} */

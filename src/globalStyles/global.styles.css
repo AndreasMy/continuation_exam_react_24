@@ -81,5 +81,7 @@ li,
   --font-stack-primary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   --font-stack-secondary: Arial, Helvetica, sans-serif;
 
+  --ui-shadow:   rgb(10, 14, 18) 0px 20px 30px -10px;
+
   --list_style: none;
 }

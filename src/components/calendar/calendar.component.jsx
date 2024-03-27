@@ -3,6 +3,7 @@ import arrowSVGLeft from "../../../public/assets/arrow-left-wide-fill.svg";
 import arrowSVGRight from "../../../public/assets/arrow-right-wide-fill.svg";
 import { WorkoutCard } from "../../molecules/workoutCard/workoutCard.molecules";
 import { useWorkoutContext } from "../../context/workoutContext";
+import { useCalendarContext } from "../../context/calendarContex";
 
 import { useModal } from "../../context/modalContext";
 
@@ -26,7 +27,8 @@ import "./calendar.styles.css";
 export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
   // let navigate = useNavigate(); // open modal instead of navigate
 
-  const { openModal, modalIsOpen, setModalIsOpen } = useModal();
+  const { openModal } = useModal();
+  const { setSelectedMonth, setSelectedYear } = useCalendarContext();
   const { setStoredExerciseGroup, exercisesList, loadExercises } =
     useWorkoutContext();
 
@@ -39,6 +41,12 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
   useEffect(() => {
     generateCalendarDays();
   }, [currentDate]);
+
+  useEffect(() => {
+    setSelectedMonth(currentDate.getMonth());
+    setSelectedYear(currentDate.getFullYear());
+  }, [currentDate, setSelectedMonth, setSelectedYear]);
+
 
   const onDaySelect = (day, event) => {
     if (onDateSelect && day.actualMonth === "current") {

@@ -5,6 +5,7 @@ import { useWorkoutContext } from "../../context/workoutContext";
 import bannerImage from "../../../public/assets/banner-image.webp";
 import { PageSection } from "../../components/pageSection/pageSection.component";
 import { Heading } from "../../components/heading/heading.component";
+import { WorkoutSessionList } from "../../molecules/workoutSessionList/WorkoutSessionList.molecules";
 
 import { format } from "date-fns";
 
@@ -29,7 +30,6 @@ export const HomePage = () => {
         >
           {/* Make component */}
           <div className="section-container">
-            <h1>Welcome, User!</h1>
             <div className="home-welcome-section-stats">
               <div className="stat-container">
                 <h4>Weekly Goal</h4>
@@ -64,31 +64,7 @@ export const HomePage = () => {
             onDateSelect={handleDateSelect}
             storedExerciseGroup={storedExerciseGroup}
           />
-          <div className="workout-list-wrapper">
-            {" "}
-            <Wrapper className="session-cards-wrapper">
-              {Array.isArray(storedExerciseGroup) &&
-                storedExerciseGroup.map((session) => (
-                  <div
-                    key={session.date}
-                    className="session-card"
-                    /* onClick={() => handleClickEntryCard(session)} */
-                  >
-                     <Heading as="h4">{format(new Date(session.date), "EEEE MMMM d")}</Heading>
-                    <ul>
-                      {session.exercises.map((exercise) => (
-                        <li key={exercise._id} className="session-card-list">
-                          <h4>{exercise.name}</h4>
-                          <p>Reps: {exercise.repetitions} </p>
-                          <p>Sets: {exercise.sets}</p>
-                          <p>{exercise.weight} kg</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-            </Wrapper>
-          </div>
+          <WorkoutSessionList storedExerciseGroup={storedExerciseGroup} />
         </PageSection>
         {/*         <div className="section-wrapper home-stat-wrapper">
           <div className="section-banner calendar-banner">
