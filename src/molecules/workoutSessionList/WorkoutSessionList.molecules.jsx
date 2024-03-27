@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { useCalendarContext } from "../../context/calendarContex";
-import { parseISO, getMonth, getYear, format } from "date-fns";
+import { parseISO, getMonth, getYear, format, compareAsc } from "date-fns";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Heading } from "../../components/heading/heading.component";
 
@@ -17,7 +17,12 @@ export const WorkoutSessionList = ({ storedExerciseGroup }) => {
           getYear(sessionDate) === selectedYear
         );
       });
-      setFilteredSessions(filtered);
+
+      const sorted = filtered.sort((a, b) =>
+        compareAsc(parseISO(a.date), parseISO(b.date))
+      );
+
+      setFilteredSessions(sorted);
     }
   }, [storedExerciseGroup, selectedMonth, selectedYear]);
 
@@ -28,11 +33,11 @@ export const WorkoutSessionList = ({ storedExerciseGroup }) => {
           <div
             key={session.date}
             className="session-card"
-            /* onClick={() => handleClickEntryCard(session)} */
           >
             <Heading as="h4">
               {format(new Date(session.date), "EEEE MMMM d")}
             </Heading>
+            <div className="line"></div>
             <ul>
               {session.exercises.map((exercise) => (
                 <li key={exercise._id} className="session-card-list">
