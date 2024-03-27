@@ -6,12 +6,34 @@ import bannerImage from "../../../public/assets/banner-image.webp";
 import { PageSection } from "../../components/pageSection/pageSection.component";
 import { Heading } from "../../components/heading/heading.component";
 import { WorkoutSessionList } from "../../molecules/workoutSessionList/WorkoutSessionList.molecules";
-
-import { format } from "date-fns";
+import { useState, useEffect } from "react";
+import { calculateWeeklyGoalProgress } from "../../helpers/dateHelpers";
+import { groupExercisesByDate, calculateCurrentStreak, calculateTotalWorkouts } from "../../helpers/dateHelpers";
 
 export const HomePage = () => {
-  const { selectedDate, storedExerciseGroup, handleDateSelect, exerciseList } =
+  const [weeklyGoalProgress, setWeeklyGoalProgress] = useState("");
+  const [totalWorkouts, setTotalWorkouts] = useState(0);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  
+  const { selectedDate, storedExerciseGroup, handleDateSelect } =
     useWorkoutContext();
+
+    useEffect(() => {
+      if (storedExerciseGroup && storedExerciseGroup.length > 0) {
+        setTotalWorkouts(calculateTotalWorkouts(storedExerciseGroup));
+        setCurrentStreak(calculateCurrentStreak(storedExerciseGroup, 3));
+      }
+    }, [storedExerciseGroup]);
+
+  useEffect(() => {
+    if (storedExerciseGroup && storedExerciseGroup.length > 0) {
+      const progress = calculateWeeklyGoalProgress(
+        groupExercisesByDate(storedExerciseGroup),
+        3
+      );
+      setWeeklyGoalProgress(progress);
+    }
+  }, [storedExerciseGroup]);
 
   return (
     <>
@@ -33,15 +55,15 @@ export const HomePage = () => {
             <div className="home-welcome-section-stats">
               <div className="stat-container">
                 <h4>Weekly Goal</h4>
-                <p>2 out of 3 days</p>
+                <p>{weeklyGoalProgress}</p>
               </div>
               <div className="stat-container">
                 <h4>Current Streak</h4>
-                <p>6 weeks</p>
+                <p>{currentStreak} weeks</p>
               </div>
               <div className="stat-container">
                 <h4>Total workouts</h4>
-                <p>48</p>
+                <p>{totalWorkouts}</p>
               </div>
             </div>
           </div>
@@ -66,21 +88,6 @@ export const HomePage = () => {
           />
           <WorkoutSessionList storedExerciseGroup={storedExerciseGroup} />
         </PageSection>
-        {/*         <div className="section-wrapper home-stat-wrapper">
-          <div className="section-banner calendar-banner">
-            <div className="banner-text-content">
-              <h4>Your Stats</h4>
-              <p>Track your progress</p>
-            </div>
-          </div>
-          <div className="section-container ">
-            <div className="home-calendar-row-content">
-              <div className="calendar-wrapper">
-              </div>
-              <div className="calendar-info-wrapper"></div>
-            </div>
-          </div>
-        </div> */}
       </Wrapper>
     </>
   );

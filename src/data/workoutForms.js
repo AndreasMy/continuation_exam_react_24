@@ -37,11 +37,6 @@ export const workoutForms = {
         type: "submit",
         className: "submit-button",
       },
-/*       cancelButton: {
-        label: "Cancel",
-        type: "button",
-        className: "cancel-button",
-      }, */
     },
   ],
   musclegroupForms: [
@@ -61,11 +56,6 @@ export const workoutForms = {
         label: "Submit",
         type: "submit",
       },
-/*       cancelButton: {  // custom config here?
-        label: "Cancel",
-        type: "button",
-        className: "cancel-button", 
-      }, */
     },
   ],
 };

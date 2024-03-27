@@ -12,7 +12,6 @@ export const makeAPIRequest = async (
 
   if (obj && (method === "POST" || method === "PUT")) {
     options.headers["Content-Type"] = "application/json";
-    console.log("Sending data to API:", obj);
 
     options.body = JSON.stringify(obj);
   }

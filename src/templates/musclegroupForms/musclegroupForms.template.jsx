@@ -7,6 +7,7 @@ import { makeAPIRequest } from "../../API/apiServices";
 import { deleteMuscleGroupAndExercises } from "../../API/apiUtilities";
 import { useModal } from "../../context/modalContext";
 import { Button } from "../../components/button/button.component";
+import { ModalConfirm } from "../../components/modalConfirm/modalConfirm.component";
 
 export const MuscleGroupForms = ({
   group,
@@ -15,15 +16,26 @@ export const MuscleGroupForms = ({
 }) => {
   const { openModal, closeModal } = useModal();
 
-  const handleDeleteMuscleGroup = async (id) => {
-    try {
-      await deleteMuscleGroupAndExercises(id);
-      await loadExercises();
-      await loadMuscleGroups();
-    } catch (error) {
-      console.error("Error deleting muscle group", error);
-    }
+  const handleDeleteMuscleGroup = (id) => {
+    const confirmDeletion = async () => {
+      try {
+        await deleteMuscleGroupAndExercises(id);
+        await loadExercises();
+        await loadMuscleGroups();
+        closeModal(); 
+      } catch (error) {
+        console.error("Error deleting muscle group", error);
+      }
+    };
+  
+    openModal(
+      <ModalConfirm
+        onConfirm={() => confirmDeletion()}
+        onCancel={() => closeModal()}
+      />
+    );
   };
+  
 
   const handleEditMuscleGroup = async (musclegroupID) => {
     try {

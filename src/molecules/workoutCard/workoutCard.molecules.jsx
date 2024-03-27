@@ -16,9 +16,7 @@ import { useState, useEffect } from "react";
 
 import { Heading } from "../../components/heading/heading.component";
 
-export const WorkoutCard = ({
-  selectedDate,
-}) => {
+export const WorkoutCard = ({ selectedDate }) => {
   const { openModal, closeModal, setMuscleGroupID, musclegroupID } = useModal();
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
@@ -109,14 +107,8 @@ export const WorkoutCard = ({
           <div className="line"></div>
         </div>
       ))}
-
-      {/*       <Forms
-          onSubmit={(formData) => handleMuscleGroupFormSubmit(formData)}
-          formConfig={workoutForms.musclegroupForms[0]}
-        /> */}
-
       <Button className="add-btn" onClick={handleAddMuscleGroupButton}>
-        Add a muscle group..
+        Add Muscle Group
       </Button>
     </Wrapper>
   );

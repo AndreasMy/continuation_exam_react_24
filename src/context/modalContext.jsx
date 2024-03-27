@@ -31,14 +31,11 @@ export const ModalProvider = ({ children }) => {
     setIsModalOpen(false);
     const newModals = modals.slice(0, -1);
     setModals(newModals);
-  
     if (newModals.length === 0) {
-      console.log("Updating, fetching, wasting...");
       await loadExercises();
     }
   };
   
-
   return (
     <ModalContext.Provider
       value={{

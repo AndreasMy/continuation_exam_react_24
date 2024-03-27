@@ -21,11 +21,9 @@ import {
 } from "date-fns";
 import { calendarData } from "../../data/calendarData";
 import { Wrapper } from "../wrapper/wrapper.component";
-//import { useNavigate } from "react-router-dom";
 import "./calendar.styles.css";
 
 export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
-  // let navigate = useNavigate(); // open modal instead of navigate
 
   const { openModal } = useModal();
   const { setSelectedMonth, setSelectedYear } = useCalendarContext();
@@ -59,7 +57,6 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
         onClose: async () => {
           await loadExercises();
           const updatedList = groupExercisesByDate(exercisesList);
-          console.log("udatedlist triggered:", updatedList)
           setStoredExerciseGroup(updatedList);
         },
       });
@@ -80,7 +77,6 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
     const daysInCurrentMonth = getDaysInMonth(currentDate);
     const firstDayOfWeek = getDay(startDay);
 
-    // Add days from the previous month to fill the first week
     for (let i = firstDayOfWeek - 1; i >= 0; i--) {
       const prevMonthDay = subDays(startDay, i + 1);
       days.push({
@@ -91,7 +87,6 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
       });
     }
 
-    // Add the days to the current month
     for (let i = 0; i < daysInCurrentMonth; i++) {
       const day = addDays(startDay, i);
       days.push({
@@ -102,11 +97,9 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
       });
     }
 
-    // Calculate how many days to add from the next month to fill the last week
     let totalSlots = Math.ceil((firstDayOfWeek + daysInCurrentMonth) / 7) * 7;
     let daysFromNextMonth = totalSlots - days.length;
 
-    // Add days from the next month
     for (let i = 0; i < daysFromNextMonth; i++) {
       const nextMonthDay = addDays(endDay, i + 1);
       days.push({
@@ -119,7 +112,7 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
     setCalendarDays(days);
   };
 
-  const handlePrevNextMonth = (direction) => { // correspondence with list to update
+  const handlePrevNextMonth = (direction) => { 
     const newMonth = month + (direction === "prev" ? -1 : 1);
     setCurrentDate(new Date(year, newMonth, 1));
   };

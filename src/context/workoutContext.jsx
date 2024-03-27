@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useFetchList } from "../API/useFetchList";
 
 import {
-  calculateWeeklyGoalProgress,
   groupExercisesByDate,
 } from "../helpers/dateHelpers";
 
@@ -21,8 +20,6 @@ export const WorkoutProvider = ({ children }) => {
   useEffect(() => {
     if (exercisesList) {
       const groupedExercises = groupExercisesByDate(exercisesList);
-      // const message = calculateWeeklyGoalProgress(groupedExercises)
-      // console.log(message)
       setStoredExerciseGroup(groupedExercises);
     }
   }, [exercisesList, selectedDate]);
@@ -34,7 +31,6 @@ export const WorkoutProvider = ({ children }) => {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    console.log(selectedDate);
   };
 
   const handleClickEntryCard = (session) => {

@@ -7,28 +7,38 @@ import { deleteExerciseFromMuscleGroup } from "../../API/apiUtilities";
 import { useModal } from "../../context/modalContext";
 import { makeAPIRequest } from "../../API/apiServices";
 import { Button } from "../../components/button/button.component";
+import { ModalConfirm } from "../../components/modalConfirm/modalConfirm.component";
 
 export const ExerciseList = ({ exercisesList, loadExercises }) => {
   const { openModal, closeModal } = useModal();
 
-  const handleDeleteExercise = async (exerciseID) => {
-    try {
-      await deleteExerciseFromMuscleGroup(exerciseID);
-      await deleteExercises(exerciseID);
-      await loadExercises();
-    } catch (error) {
-      console.error("Error deleting muscle Exercise", error);
-    }
+  const handleDeleteExercise = (exerciseID) => {
+    const confirmDeletion = async () => {
+      try {
+        await deleteExerciseFromMuscleGroup(exerciseID);
+        await deleteExercises(exerciseID);
+        await loadExercises();
+      } catch (error) {
+        console.error("Error deleting muscle Exercise", error);
+      } finally {
+        closeModal() 
+      }
+    };
+
+    openModal(
+      <ModalConfirm
+        onConfirm={() => confirmDeletion()}
+        onCancel={() => closeModal()}
+      />
+    );
   };
 
   const handleEditExercise = async (exerciseID) => {
-    console.log(exerciseID);
     try {
       const selectedExercise = await makeAPIRequest("exercises", {
         method: "GET",
         id: exerciseID,
       });
-      console.log(selectedExercise);
       openModal(
         <Forms
           formConfig={workoutForms.exerciseForms[0]}
@@ -43,7 +53,6 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
   };
 
   const submitUpdatedExercise = async (formData, exerciseId) => {
-    console.log(exerciseId);
     try {
       if (!exerciseId) {
         console.error("No exercise ID is set for editing.");

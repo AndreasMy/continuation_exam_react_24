@@ -9,9 +9,6 @@ export const AppLayout = () => {
   const {closeModal, modals } = useModal();
   return (
     <>
-{/*       <header>
-        <NavBar />
-      </header> */}
       <main>
         <div className="main-content">
           <Outlet />{" "}
@@ -19,10 +16,9 @@ export const AppLayout = () => {
       </main>
       {modals.map((modal, index) => (
         <Modal
-          key={index} // Consider using a more stable identifier
-      
-          closeModal={closeModal}
-          className={modal.id} // Use the ID or another property for custom styling if needed
+          key={index} 
+          closeModal={() => closeModal(index)}
+          className={modal.id} 
         >
           {modal.content}
         </Modal>
