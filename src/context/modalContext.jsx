@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
 import { useEffect } from "react";
+import { useWorkoutContext } from "./workoutContext";
 
 const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
   const [modals, setModals] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const {loadExercises} = useWorkoutContext();
 
   useEffect(() => {
     if (modals.length > 0) {
@@ -20,20 +23,32 @@ export const ModalProvider = ({ children }) => {
   }, [modals.length]);
 
   const openModal = (content, mgID = null) => {
+    setIsModalOpen(true);
     setModals((currentModals) => [...currentModals, { content, mgID }]);
   };
 
-  const closeModal = () => {
-    setModals((currentModals) => currentModals.slice(0, -1));
+  const closeModal = async () => {
+    setIsModalOpen(false);
+    const newModals = modals.slice(0, -1);
+    setModals(newModals);
+  
+    if (newModals.length === 0) {
+      console.log("Updating, fetching, wasting...");
+      await loadExercises();
+    }
   };
-  console.log(modals);
+  
+
   return (
     <ModalContext.Provider
       value={{
         openModal,
         closeModal,
         modals,
+        isModalOpen,
+        setIsModalOpen,
       }}
+      openModal
     >
       {children}
     </ModalContext.Provider>

@@ -33,6 +33,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
         <Forms
           formConfig={workoutForms.exerciseForms[0]}
           onSubmit={(formData) => submitUpdatedExercise(formData, exerciseID)}
+          onCancel={closeModal}
           defaultValues={selectedExercise}
         />
       );

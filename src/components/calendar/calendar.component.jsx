@@ -26,12 +26,11 @@ import "./calendar.styles.css";
 export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
   // let navigate = useNavigate(); // open modal instead of navigate
 
-  const { openModal } = useModal();
+  const { openModal, modalIsOpen, setModalIsOpen } = useModal();
   const { setStoredExerciseGroup, exercisesList, loadExercises } =
     useWorkoutContext();
 
-  const now = new Date();
-  const [currentDate, setCurrentDate] = useState(now);
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [calendarDays, setCalendarDays] = useState([]);
 
   const year = currentDate.getFullYear();
@@ -47,13 +46,13 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
       const fullDate = new Date(year, month, day.date);
       const formattedDate = format(fullDate, "yyyy-MM-dd");
       onDateSelect(formattedDate);
-
+    
       openModal(<WorkoutCard selectedDate={formattedDate} />, {
         onClose: async () => {
           await loadExercises();
           const updatedList = groupExercisesByDate(exercisesList);
+          console.log("udatedlist triggered:", updatedList)
           setStoredExerciseGroup(updatedList);
-          setIsAddingWorkout(false);
         },
       });
     }
@@ -112,7 +111,7 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
     setCalendarDays(days);
   };
 
-  const handlePrevNextMonth = (direction) => {
+  const handlePrevNextMonth = (direction) => { // correspondence with list to update
     const newMonth = month + (direction === "prev" ? -1 : 1);
     setCurrentDate(new Date(year, newMonth, 1));
   };

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { getCurrentDate } from "../../helpers/formHelpers";
 
-export const Forms = ({ formConfig, onSubmit, defaultValues = {} }) => {
+export const Forms = ({
+  formConfig,
+  onSubmit,
+  defaultValues = {},
+  onCancel = () => {},
+}) => {
   const initialFormData = formConfig.fields.reduce((acc, field) => {
     if (field.type === "date") {
       acc[field.id] = defaultValues[field.id] || getCurrentDate();
@@ -65,9 +70,18 @@ export const Forms = ({ formConfig, onSubmit, defaultValues = {} }) => {
           )}
         </div>
       ))}
-      <button type={formConfig.submitButton.type}>
+      <button type="submit" className={formConfig.submitButton.className}>
         {formConfig.submitButton.label}
       </button>
+      {onCancel && (
+        <button
+          type="button"
+          onClick={onCancel}
+
+        >
+          Cancel
+        </button>
+      )}
     </form>
   );
 };

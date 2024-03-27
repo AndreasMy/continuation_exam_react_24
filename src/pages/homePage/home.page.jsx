@@ -2,47 +2,15 @@ import "./home.styles.css";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Calendar } from "../../components/calendar/calendar.component";
 import { useWorkoutContext } from "../../context/workoutContext";
-import { useModal } from "../../context/modalContext";
 import bannerImage from "../../../public/assets/banner-image.webp";
 import { PageSection } from "../../components/pageSection/pageSection.component";
 import { Heading } from "../../components/heading/heading.component";
-import { useEffect } from "react";
-import { groupExercisesByDate } from "../../helpers/dateHelpers";
+
+import { format } from "date-fns";
 
 export const HomePage = () => {
-  const {
-    selectedDate,
-    storedExerciseGroup,
-    handleDateSelect,
-    setStoredExerciseGroup,
-    setIsAddingWorkout,
-    loadExercises,
-    exercisesList,
-  } = useWorkoutContext();
-
-  const { modals } = useModal();
-
-  useEffect(() => {
-    // Trigger the logic when the last modal is closed (i.e., modals array length is 0)
-    if (modals.length === 0) {
-      const updateExercises = async () => {
-        await loadExercises();
-        const updatedList = groupExercisesByDate(exercisesList);
-        setStoredExerciseGroup(updatedList);
-        // Only set `isAddingWorkout` to false if necessary,
-        // e.g., if this logic should only run after closing a specific modal related to workouts.
-        setIsAddingWorkout(false);
-      };
-
-      updateExercises();
-    }
-  }, [
-    modals.length,
-    loadExercises,
-    exercisesList,
-    setStoredExerciseGroup,
-    setIsAddingWorkout,
-  ]);
+  const { selectedDate, storedExerciseGroup, handleDateSelect, exerciseList } =
+    useWorkoutContext();
 
   return (
     <>
@@ -96,7 +64,31 @@ export const HomePage = () => {
             onDateSelect={handleDateSelect}
             storedExerciseGroup={storedExerciseGroup}
           />
-          <div className="workout-list-wrapper"></div>
+          <div className="workout-list-wrapper">
+            {" "}
+            <Wrapper className="session-cards-wrapper">
+              {Array.isArray(storedExerciseGroup) &&
+                storedExerciseGroup.map((session) => (
+                  <div
+                    key={session.date}
+                    className="session-card"
+                    /* onClick={() => handleClickEntryCard(session)} */
+                  >
+                     <Heading as="h4">{format(new Date(session.date), "EEEE MMMM d")}</Heading>
+                    <ul>
+                      {session.exercises.map((exercise) => (
+                        <li key={exercise._id} className="session-card-list">
+                          <h4>{exercise.name}</h4>
+                          <p>Reps: {exercise.repetitions} </p>
+                          <p>Sets: {exercise.sets}</p>
+                          <p>{exercise.weight} kg</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+            </Wrapper>
+          </div>
         </PageSection>
         {/*         <div className="section-wrapper home-stat-wrapper">
           <div className="section-banner calendar-banner">

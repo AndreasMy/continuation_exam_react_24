@@ -1,18 +1,4 @@
-/* export const sortExercisesByDate = (exercises) => {
-  if (!exercises.length) {
-    console.log("No exercises to sort.");
-    return [];
-  }
-
-  const sortedExercises = exercises.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateA - dateB;
-  });
-
-  console.log("Sorted exercises:", sortedExercises);
-  return sortedExercises;
-}; */
+import { startOfWeek, endOfWeek, isWithinInterval, parseISO } from "date-fns";
 
 export const groupExercisesByDate = (exercises) => {
   if (!exercises.length) {
@@ -32,5 +18,34 @@ export const groupExercisesByDate = (exercises) => {
     date: date,
     exercises: groupedByDate[date],
   }));
+
   return transformedArray;
 };
+
+export const calculateWeeklyGoalProgress = (groupedExercises, goal = 3) => {
+  if (!Array.isArray(groupedExercises)) {
+    console.error("groupedExercises is not an array", groupedExercises);
+    return;
+  }
+
+  const now = new Date();
+  const start = startOfWeek(now, { weekStartsOn: 0 });
+  const end = endOfWeek(now, { weekStartsOn: 0 });
+
+ //return console.log(groupedExercises)
+  let daysCount = 0;
+  groupedExercises.forEach((group) => {
+    // ncaught TypeError: groupedExercises.forEach is not a function
+    if (isWithinInterval(parseISO(group.date), { start, end })) {
+      daysCount++;
+    }
+  });
+
+  
+  return `${daysCount} of ${goal} days`;
+};
+
+
+
+
+

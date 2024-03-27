@@ -1,9 +1,9 @@
 import { Button } from "../button/button.component";
-import './modal.styles.css'
+import "./modal.styles.css";
 
-export const Modal = ({ isModalOpen, closeModal, children, className }) => {
+export const Modal = ({ closeModal, children, className }) => {
   return (
-    <div className={`modal-overlay ${isModalOpen ? "open" : ""}`}>
+    <div className="modal-overlay">
       <div
         className={`modal-container ${className}`}
         onClick={(e) => e.stopPropagation()}

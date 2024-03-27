@@ -8,7 +8,6 @@ import { ExerciseList } from "../../templates/workoutList/exerciseList.template"
 import { ExerciseForms } from "../../templates/exerciseForms/exerciseForms.template";
 import { Wrapper } from "../../components/wrapper/wrapper.component";
 import { Button } from "../../components/button/button.component";
-import { groupExercisesByDate } from "../../helpers/dateHelpers";
 import { submitForm } from "../../helpers/formHelpers";
 import { Forms } from "../../components/forms/forms.component";
 import { workoutForms } from "../../data/workoutForms";
@@ -19,10 +18,10 @@ import { Heading } from "../../components/heading/heading.component";
 
 export const WorkoutCard = ({
   selectedDate,
-  setIsAddingWorkout,
+
   setStoredExerciseGroup,
 }) => {
-  const { openModal, setMuscleGroupID, musclegroupID } = useModal();
+  const { openModal, setMuscleGroupID, musclegroupID, setModalIsOpen } = useModal();
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
@@ -36,13 +35,6 @@ export const WorkoutCard = ({
     loadMuscleGroups();
     loadExercises();
   }, [loadMuscleGroups, loadExercises]);
-
-  const handleCloseWorkoutCard = async () => {
-    await loadExercises();
-    const updatedList = groupExercisesByDate(exercisesList);
-    setStoredExerciseGroup(updatedList);
-    setIsAddingWorkout(false);
-  };
 
   const handleMuscleGroupFormSubmit = async (FormData) => {
     await submitForm(
@@ -125,7 +117,6 @@ export const WorkoutCard = ({
           Add a muscle group..
         </Button>
       )}
-      <Button onClick={handleCloseWorkoutCard}>Done</Button>
     </Wrapper>
   );
 };

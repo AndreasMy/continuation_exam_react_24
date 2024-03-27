@@ -37,6 +37,7 @@ export const ExerciseForms = ({
       <h2>Add Exercise</h2>
       <Forms
         onSubmit={submitExerciseForm}
+        onCancel={closeModal}
         formConfig={workoutForms.exerciseForms[0]}
       />
     </Wrapper>

@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useFetchList } from "../API/useFetchList";
-import { useModal } from "./modalContext";
-import { groupExercisesByDate } from "../helpers/dateHelpers";
-import { WorkoutCard } from "../molecules/workoutCard/workoutCard.molecules";
+
+import {
+  calculateWeeklyGoalProgress,
+  groupExercisesByDate,
+} from "../helpers/dateHelpers";
 
 const WorkoutContext = createContext();
 export const WorkoutProvider = ({ children }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [storedExerciseGroup, setStoredExerciseGroup] = useState([]);
-  const [isAddingWorkout, setIsAddingWorkout] = useState(false);
 
   const { list: exercisesList, loadList: loadExercises } =
     useFetchList("ovelser");
@@ -20,6 +21,8 @@ export const WorkoutProvider = ({ children }) => {
   useEffect(() => {
     if (exercisesList) {
       const groupedExercises = groupExercisesByDate(exercisesList);
+      // const message = calculateWeeklyGoalProgress(groupedExercises)
+      // console.log(message)
       setStoredExerciseGroup(groupedExercises);
     }
   }, [exercisesList, selectedDate]);
@@ -27,18 +30,15 @@ export const WorkoutProvider = ({ children }) => {
   const handleSelectDate = (formData) => {
     const dateFromForm = formData["date"];
     setSelectedDate(dateFromForm);
-    setIsAddingWorkout(true);
   };
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    setIsAddingWorkout(true);
     console.log(selectedDate);
   };
 
   const handleClickEntryCard = (session) => {
     setSelectedDate(session.date);
-    setIsAddingWorkout(true);
   };
 
   return (
@@ -50,8 +50,7 @@ export const WorkoutProvider = ({ children }) => {
         setSelectedDate,
         storedExerciseGroup,
         setStoredExerciseGroup,
-        isAddingWorkout,
-        setIsAddingWorkout,
+
         handleSelectDate,
         handleDateSelect,
         handleClickEntryCard,
@@ -62,4 +61,4 @@ export const WorkoutProvider = ({ children }) => {
   );
 };
 
-export const useWorkoutContext = () => useContext(WorkoutContext);
+export const useWorkoutContext = () => useContext(WorkoutContext); // error

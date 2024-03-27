@@ -35,6 +35,12 @@ export const workoutForms = {
       submitButton: {
         label: "Submit",
         type: "submit",
+        className: "submit-button",
+      },
+      cancelButton: {
+        label: "Cancel",
+        type: "button",
+        className: "cancel-button",
       },
     },
   ],
@@ -73,6 +79,12 @@ export const workoutForms = {
       submitButton: {
         label: "New Workout",
         type: "submit",
+        className: "submit-button",
+      },
+      cancelButton: {
+        label: "Cancel",
+        type: "button",
+        className: "cancel-button",
       },
     },
   ],
