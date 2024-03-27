@@ -2,16 +2,16 @@ import { makeAPIRequest } from "./apiServices";
 
 export const populateMuscleGroupArray = async (exerciseID, muscleGroupID) => {
   try {
-    const muscleGroup = await makeAPIRequest("muskelgrupper", {
+    const muscleGroup = await makeAPIRequest("musclegroups", {
       method: "GET",
       id: muscleGroupID,
     });
     if (muscleGroup) {
       const updatedMG = {
-        navn: muscleGroup.navn,
-        ovelser: [...muscleGroup.ovelser, exerciseID],
+        name: muscleGroup.name,
+        exercises: [...muscleGroup.exercises, exerciseID],
       };
-      await makeAPIRequest("muskelgrupper", {
+      await makeAPIRequest("musclegroups", {
         method: "PUT",
         obj: updatedMG,
         id: muscleGroupID,
@@ -27,7 +27,7 @@ export const deleteExercises = async (exerciseIDs) => {
 
   try {
     for (const id of arrToDelete) {
-      await makeAPIRequest("ovelser", { method: "DELETE", id: id });
+      await makeAPIRequest("exercises", { method: "DELETE", id: id });
     }
   } catch (error) {
     console.error("Error deleting exercise", error);
@@ -37,11 +37,11 @@ export const deleteExercises = async (exerciseIDs) => {
 
 export const fetchExercisesByMuscleGroupID = async (musclegroupID) => {
   try {
-    const data = await makeAPIRequest("muskelgrupper", {
+    const data = await makeAPIRequest("musclegroups", {
       method: "GET",
       id: musclegroupID,
     });
-    const arrayData = [...data.ovelser];
+    const arrayData = [...data.exercises];
     return arrayData;
   } catch (error) {
     console.error("Error finding array items", error);
@@ -50,38 +50,38 @@ export const fetchExercisesByMuscleGroupID = async (musclegroupID) => {
 
 export const deleteExerciseFromMuscleGroup = async (exerciseID) => {
   try {
-    const exercise = await makeAPIRequest("ovelser", {
+    const exercise = await makeAPIRequest("exercises", {
       method: "GET",
       id: exerciseID,
     });
 
-    if (!exercise || !exercise.muskelgruppe) {
+    if (!exercise || !exercise.musclegroup) {
       console.error("Exercise or associated musclegroup not found");
       return;
     }
 
-    const muscleGroupID = exercise.muskelgruppe;
-    const muscleGroup = await makeAPIRequest("muskelgrupper", {
+    const muscleGroupID = exercise.musclegroup;
+    const muscleGroup = await makeAPIRequest("musclegroups", {
       method: "GET",
       id: muscleGroupID,
     });
 
-    if (!muscleGroup || !muscleGroup.ovelser) {
+    if (!muscleGroup || !muscleGroup.exercises) {
       console.error("Muscle group or its exercises array not found");
       return;
     }
     
-    const navn = muscleGroup.navn;
-    const updatedOvelser = muscleGroup.ovelser.filter(
+    const name = muscleGroup.name;
+    const updatedExercises = muscleGroup.exercises.filter(
       (id) => id !== exerciseID
     );
 
     const updatedMuscleGroup = {
-      navn,
-      ovelser: updatedOvelser,
+      name,
+      exercises: updatedExercises,
     };
 
-    await makeAPIRequest("muskelgrupper", {
+    await makeAPIRequest("musclegroups", {
       method: "PUT",
       obj: updatedMuscleGroup,
       id: muscleGroupID,
@@ -98,7 +98,7 @@ export const deleteMuscleGroupAndExercises = async (musclegroupID) => {
     if (exerciseIDs.length) {
       await deleteExercises(exerciseIDs);
     }
-    await makeAPIRequest("muskelgrupper", {
+    await makeAPIRequest("musclegroups", {
       method: "DELETE",
       id: musclegroupID,
     });

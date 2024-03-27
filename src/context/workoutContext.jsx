@@ -12,7 +12,7 @@ export const WorkoutProvider = ({ children }) => {
   const [storedExerciseGroup, setStoredExerciseGroup] = useState([]);
 
   const { list: exercisesList, loadList: loadExercises } =
-    useFetchList("ovelser");
+    useFetchList("exercises");
 
   useEffect(() => {
     loadExercises();

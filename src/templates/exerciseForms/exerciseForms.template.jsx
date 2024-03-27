@@ -21,8 +21,8 @@ export const ExerciseForms = ({
       await submitForm(
         FormData,
         workoutForms.exerciseForms[0],
-        "ovelser",
-        { muskelgruppe: musclegroupID, date: selectedDate },
+        "exercises",
+        { musclegroup: musclegroupID, date: selectedDate },
         async (response) => {
           await populateMuscleGroupArray(response._id, musclegroupID);
           await loadExercises();

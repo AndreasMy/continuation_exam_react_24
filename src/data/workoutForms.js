@@ -49,10 +49,10 @@ export const workoutForms = {
       id: "musclegroupForm",
       fields: [
         {
-          id: "navn",
+          id: "name",
           type: "text",
           label: "Name",
-          placeholder: "Rygg, bein, etc...",
+          placeholder: "Chest, legs, etc...",
           required: true,
           autoFocus: true,
         },

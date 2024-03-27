@@ -24,7 +24,7 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
   const handleEditExercise = async (exerciseID) => {
     console.log(exerciseID);
     try {
-      const selectedExercise = await makeAPIRequest("ovelser", {
+      const selectedExercise = await makeAPIRequest("exercises", {
         method: "GET",
         id: exerciseID,
       });
@@ -50,18 +50,18 @@ export const ExerciseList = ({ exercisesList, loadExercises }) => {
         return;
       }
 
-      const currentExercise = await makeAPIRequest("ovelser", {
+      const currentExercise = await makeAPIRequest("exercises", {
         method: "GET",
         id: exerciseId,
       });
 
       const updatedFormData = {
         ...formData,
-        muskelgruppe: currentExercise.muskelgruppe,
+        musclegroup: currentExercise.musclegroup,
         date: currentExercise.date,
       };
 
-      await makeAPIRequest("ovelser", {
+      await makeAPIRequest("exercises", {
         method: "PUT",
         obj: updatedFormData,
         id: exerciseId,

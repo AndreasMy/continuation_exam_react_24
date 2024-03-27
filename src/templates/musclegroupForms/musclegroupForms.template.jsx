@@ -27,7 +27,7 @@ export const MuscleGroupForms = ({
 
   const handleEditMuscleGroup = async (musclegroupID) => {
     try {
-      const musclegroupObj = await makeAPIRequest("muskelgrupper", {
+      const musclegroupObj = await makeAPIRequest("musclegroups", {
         method: "GET",
         id: musclegroupID,
       });
@@ -51,17 +51,17 @@ export const MuscleGroupForms = ({
         console.error("No musclegroup ID is set for editing");
       }
 
-      const currentMuscleGroup = await makeAPIRequest("muskelgrupper", {
+      const currentMuscleGroup = await makeAPIRequest("musclegroups", {
         method: "GET",
         id: musclegroupID,
       });
 
       const updatedMuscleGroup = {
         ...formData,
-        ovelser: currentMuscleGroup.ovelser,
+        exercises: currentMuscleGroup.exercises,
       };
 
-      await makeAPIRequest("muskelgrupper", {
+      await makeAPIRequest("musclegroups", {
         method: "PUT",
         obj: updatedMuscleGroup,
         id: musclegroupID,
@@ -79,7 +79,7 @@ export const MuscleGroupForms = ({
       <ul>
         <li className="musclegroup-list">
           <div className="muscle-group-list-item">
-            <h3>{group.navn}:</h3>
+            <h3>{group.name}:</h3>
             <div className="list-item-btn-container">
               <Button
                 className="list-btn delete-btn"

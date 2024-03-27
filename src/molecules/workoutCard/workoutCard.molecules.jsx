@@ -27,9 +27,9 @@ export const WorkoutCard = ({
   const [isClicked, setIsClicked] = useState(false);
 
   const { list: musclegroups, loadList: loadMuscleGroups } =
-    useFetchList("muskelgrupper");
+    useFetchList("musclegroups");
   const { list: exercisesList, loadList: loadExercises } =
-    useFetchList("ovelser");
+    useFetchList("exercises");
 
   useEffect(() => {
     loadMuscleGroups();
@@ -40,8 +40,8 @@ export const WorkoutCard = ({
     await submitForm(
       FormData,
       workoutForms.musclegroupForms[0],
-      "muskelgrupper",
-      { ovelser: [] },
+      "musclegroups",
+      { exercises: [] },
       loadMuscleGroups
     );
     setIsClicked(false);
@@ -54,13 +54,13 @@ export const WorkoutCard = ({
   const handleSelectMuscleGroupItem = (group) => {
     setMuscleGroupSelected(true);
     setMuscleGroupID(group._id);
-    setSelectedMuscleGroup(group.navn);
+    setSelectedMuscleGroup(group.name);
   };
 
   const filterExercisesByMuscleGroup = (musclegroupID) => {
     const filteredExercises = exercisesList.filter(
       (exercise) =>
-        exercise.muskelgruppe === musclegroupID &&
+        exercise.musclegroup === musclegroupID &&
         exercise.date === selectedDate
     );
     return filteredExercises;
