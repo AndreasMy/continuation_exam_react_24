@@ -29,11 +29,9 @@ export const WorkoutSessionList = ({ storedExerciseGroup }) => {
   return (
     <Wrapper className="session-cards-wrapper">
       {Array.isArray(filteredSessions) &&
+        filteredSessions.length > 0 ?
         filteredSessions.map((session) => (
-          <div
-            key={session.date}
-            className="session-card"
-          >
+          <div key={session.date} className="session-card">
             <Heading as="h4">
               {format(new Date(session.date), "EEEE MMMM d")}
             </Heading>
@@ -49,7 +47,14 @@ export const WorkoutSessionList = ({ storedExerciseGroup }) => {
               ))}
             </ul>
           </div>
-        ))}
+        )) : (
+            <div className="session-card placeholder">
+            <Heading as="h4">No Workout Sessions Found</Heading>
+            <p>Looks like you don't have any sessions for this period</p>
+            <br />
+            <p>Add a Workout Session By Selecting a Date on the Calendar</p>
+          </div>
+        ) }
     </Wrapper>
   );
 };

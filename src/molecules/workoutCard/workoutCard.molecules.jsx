@@ -18,13 +18,10 @@ import { Heading } from "../../components/heading/heading.component";
 
 export const WorkoutCard = ({
   selectedDate,
-
-  setStoredExerciseGroup,
 }) => {
-  const { openModal, setMuscleGroupID, musclegroupID, setModalIsOpen } = useModal();
+  const { openModal, closeModal, setMuscleGroupID, musclegroupID } = useModal();
   const [musclegroupSelected, setMuscleGroupSelected] = useState(false);
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
-  const [isClicked, setIsClicked] = useState(false);
 
   const { list: musclegroups, loadList: loadMuscleGroups } =
     useFetchList("musclegroups");
@@ -48,7 +45,13 @@ export const WorkoutCard = ({
   };
 
   const handleAddMuscleGroupButton = () => {
-    setIsClicked(true);
+    openModal(
+      <Forms
+        onSubmit={(formData) => handleMuscleGroupFormSubmit(formData)}
+        onCancel={closeModal}
+        formConfig={workoutForms.musclegroupForms[0]}
+      />
+    );
   };
 
   const handleSelectMuscleGroupItem = (group) => {
@@ -60,8 +63,7 @@ export const WorkoutCard = ({
   const filterExercisesByMuscleGroup = (musclegroupID) => {
     const filteredExercises = exercisesList.filter(
       (exercise) =>
-        exercise.musclegroup === musclegroupID &&
-        exercise.date === selectedDate
+        exercise.musclegroup === musclegroupID && exercise.date === selectedDate
     );
     return filteredExercises;
   };
@@ -107,16 +109,15 @@ export const WorkoutCard = ({
           <div className="line"></div>
         </div>
       ))}
-      {isClicked ? (
-        <Forms
+
+      {/*       <Forms
           onSubmit={(formData) => handleMuscleGroupFormSubmit(formData)}
           formConfig={workoutForms.musclegroupForms[0]}
-        />
-      ) : (
-        <Button className="add-btn" onClick={handleAddMuscleGroupButton}>
-          Add a muscle group..
-        </Button>
-      )}
+        /> */}
+
+      <Button className="add-btn" onClick={handleAddMuscleGroupButton}>
+        Add a muscle group..
+      </Button>
     </Wrapper>
   );
 };

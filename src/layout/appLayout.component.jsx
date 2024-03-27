@@ -9,9 +9,9 @@ export const AppLayout = () => {
   const {closeModal, modals } = useModal();
   return (
     <>
-      <header>
+{/*       <header>
         <NavBar />
-      </header>
+      </header> */}
       <main>
         <div className="main-content">
           <Outlet />{" "}

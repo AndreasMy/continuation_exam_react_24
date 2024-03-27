@@ -73,15 +73,6 @@ export const Forms = ({
       <button type="submit" className={formConfig.submitButton.className}>
         {formConfig.submitButton.label}
       </button>
-      {onCancel && (
-        <button
-          type="button"
-          onClick={onCancel}
-
-        >
-          Cancel
-        </button>
-      )}
     </form>
   );
 };

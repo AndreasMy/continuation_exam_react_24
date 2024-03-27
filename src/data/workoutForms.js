@@ -37,11 +37,11 @@ export const workoutForms = {
         type: "submit",
         className: "submit-button",
       },
-      cancelButton: {
+/*       cancelButton: {
         label: "Cancel",
         type: "button",
         className: "cancel-button",
-      },
+      }, */
     },
   ],
   musclegroupForms: [
@@ -61,31 +61,11 @@ export const workoutForms = {
         label: "Submit",
         type: "submit",
       },
-    },
-  ],
-  workoutForm: [
-    {
-      id: "workoutForm",
-      fields: [
-        {
-          id: "date",
-          type: "date",
-          label: "Date",
-          placeholder: "YYYY-MM-DD",
-          required: true,
-          autoFocus: true,
-        },
-      ],
-      submitButton: {
-        label: "New Workout",
-        type: "submit",
-        className: "submit-button",
-      },
-      cancelButton: {
+/*       cancelButton: {  // custom config here?
         label: "Cancel",
         type: "button",
-        className: "cancel-button",
-      },
+        className: "cancel-button", 
+      }, */
     },
   ],
 };

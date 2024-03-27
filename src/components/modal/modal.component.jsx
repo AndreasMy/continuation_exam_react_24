@@ -3,7 +3,7 @@ import "./modal.styles.css";
 
 export const Modal = ({ closeModal, children, className }) => {
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" onClick={closeModal}>
       <div
         className={`modal-container ${className}`}
         onClick={(e) => e.stopPropagation()}
