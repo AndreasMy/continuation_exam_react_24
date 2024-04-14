@@ -158,7 +158,7 @@ export const Calendar = ({ onDateSelect, storedExerciseGroup = [] }) => {
               <li
                 key={index}
                 className={`${day.class} ${hasWorkout ? "has-workout" : ""}`}
-                onClick={(event) => onDaySelect(day, event)} // event is deprecated
+                onClick={(event) => onDaySelect(day, event)}
               >
                 {day.date}
               </li>

@@ -1,4 +1,4 @@
-# React Constinuation Exam
+# React Continuation Exam
 
 ## Installation & other instructions
 
